@@ -9,7 +9,7 @@ export const BRAND = {
   address: { ar: '[عنوان المصنع]', en: '[Factory address]' },
 }
 
-// Derived, optimised assets written by tools/build_assets.py.
+// Derived, optimised assets (WebP) served from public/img.
 export const img = (path) => `${import.meta.env.BASE_URL}img/${path}`
 // Files supplied as-is under public/images (logo, award scans).
 export const asset = (path) => `${import.meta.env.BASE_URL}images/${path}`

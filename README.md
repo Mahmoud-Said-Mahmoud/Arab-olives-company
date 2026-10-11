@@ -57,7 +57,7 @@ src/
 public/
   img/               Optimised images used by the site
   images/            Original logo, product photos and document scans
-tools/               Asset builders and verify.mjs
+tools/               Data builders and verify.mjs
 ```
 
 ## Deployment

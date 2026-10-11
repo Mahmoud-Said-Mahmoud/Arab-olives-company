@@ -18,7 +18,7 @@ export const CUTS = {
   paste: { ar: 'معجون', en: 'Paste' },
 }
 
-// One entry per supplied photo, in the order tools/build_assets.py numbers them.
+// One entry per supplied photo, in the order the optimised catalog images are numbered.
 const LIST = [
   ['green', 'whole', 'زيتون أخضر بيكوال سليم', 'Whole green Picual olives'],
   ['green', 'whole', 'زيتون أخضر دولسي سليم', 'Whole green Dolce olives'],
