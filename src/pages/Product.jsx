@@ -33,7 +33,7 @@ export default function Product() {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = previous; if (dialog.open) dialog.close() }
   }, [zoom])
-  usePage(p ? p[lang] : t.notFound.title)
+  usePage(p ? p[lang] : t.notFound.title, p ? describe(p, lang) : undefined, { noindex: !p })
   if (!p) return <NotFound product />
   const other = lang === 'ar' ? 'en' : 'ar'
   const specs = productSpecs(p, lang)

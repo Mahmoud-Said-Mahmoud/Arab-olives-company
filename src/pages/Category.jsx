@@ -14,7 +14,7 @@ export default function Category() {
   // A selection made in the page's discovery (a filling, a colour type, a vegetable…) narrows the grid.
   const [pick, setPick] = useState(null)
   useEffect(() => setPick(null), [category])
-  usePage(cat ? cat.title[lang] : t.notFound.title)
+  usePage(cat ? cat.title[lang] : t.notFound.title, cat ? t.catPage[cat.id].lead : undefined, { noindex: !cat })
   if (!cat) return <NotFound />
 
   return (

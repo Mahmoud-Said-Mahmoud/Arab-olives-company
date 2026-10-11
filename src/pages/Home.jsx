@@ -17,7 +17,7 @@ const PICKS = [2, 12, 23, 26, 44, 48].map((id) => PRODUCTS[id])
 export default function Home() {
   const { t, lang } = useLang()
   const navigate = useNavigate()
-  usePage(t.home.title)
+  usePage(t.home.title, t.home.sub)
   const still = typeof window !== 'undefined' && window.matchMedia(REDUCED).matches
   // The jar scene speaks in section ids and family ids; here they become routes.
   const go = useCallback((id) => navigate(id === 'catalog' ? '/products' : '/export'), [navigate])

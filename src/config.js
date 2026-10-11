@@ -1,6 +1,9 @@
 // The Arabic trade name was not supplied, so the Latin name is used in both languages.
 // Contact details below were not supplied either: replace every placeholder before launch.
 // src/inquiry.js only offers WhatsApp / email once these hold real values.
+// Public address of the site: used for canonical links, social previews and the sitemap.
+export const SITE_URL = 'https://arab-olives.vercel.app'
+
 export const BRAND = {
   name: { ar: 'Arab Olives', en: 'Arab Olives' },
   whatsapp: '201288518544', // owner-confirmed WhatsApp number, digits only

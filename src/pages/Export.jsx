@@ -9,7 +9,7 @@ import Inquiry from '../components/Inquiry.jsx'
 export default function Export() {
   const { t, lang } = useLang()
   const [params] = useSearchParams()
-  usePage(t.exportPage.title)
+  usePage(t.exportPage.title, t.exportPage.lead)
   // /export?family=<category slug>&product=<product slug> arrives from product and category pages.
   const family = params.get('family')
   const product = params.get('product')

@@ -4,7 +4,7 @@ import { usePage } from '../components/Page.jsx'
 
 export default function NotFound({ product = false }) {
   const { t } = useLang()
-  usePage(t.notFound.title)
+  usePage(t.notFound.title, undefined, { noindex: true })
   return (
     <section className="page page--narrow notfound">
       <p className="eyebrow">404</p>

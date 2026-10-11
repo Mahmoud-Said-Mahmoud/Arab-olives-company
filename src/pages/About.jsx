@@ -5,7 +5,7 @@ import FactoryMap, { MapLinks } from '../components/FactoryMap.jsx'
 
 export default function About() {
   const { t } = useLang()
-  usePage(t.nav.about)
+  usePage(t.nav.about, t.aboutPage.lead)
   return (
     <div className="page about-page">
       <Breadcrumbs trail={[[t.nav.about]]} />

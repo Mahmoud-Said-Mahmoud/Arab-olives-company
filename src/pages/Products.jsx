@@ -5,7 +5,7 @@ import { CATEGORIES, PRODUCTS } from '../data/products.js'
 export default function Products() {
   const { t, lang } = useLang()
   const [family, setFamily] = useState('green')
-  usePage(t.catalog.title)
+  usePage(t.catalog.title, t.catalog.lead)
   return (
     <div className="page all-products">
       <Breadcrumbs trail={[[t.nav.products]]} />

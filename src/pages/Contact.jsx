@@ -9,7 +9,7 @@ import { BRAND } from '../config.js'
 // The map loads only when it is near the viewport (or, on touch screens, when asked for).
 export default function Contact() {
   const { t, lang } = useLang()
-  usePage(t.contactPage.title)
+  usePage(t.contactPage.title, t.contactPage.lead)
   return (
     <div className="page">
       <Breadcrumbs trail={[[t.nav.contact]]} />

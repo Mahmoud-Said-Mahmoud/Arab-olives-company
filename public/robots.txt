@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://arab-olives.vercel.app/sitemap.xml
