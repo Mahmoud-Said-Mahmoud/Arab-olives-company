@@ -60,7 +60,7 @@ tools/               Asset builders and verify.mjs
 
 ## Deployment
 
-The site is a single-page app with real URLs, so the host must serve `index.html` for unknown paths. `public/_redirects` already does this on Netlify-style hosts; other hosts need an equivalent rewrite rule.
+The site is a single-page app with real URLs, so the host must serve `index.html` for unknown paths. `vercel.json` does this on Vercel and `public/_redirects` on Netlify-style hosts; other hosts need an equivalent rewrite rule.
 
 ## Content rules
 
@@ -68,6 +68,5 @@ Only confirmed information is published. Prices, weights, shelf life, nutrition,
 
 ## Contact
 
-- Phone: 01092178421
-- WhatsApp: 01288518544
-- Factory location: [open in Google Maps](https://www.google.com/maps/search/?api=1&query=30.446131%2C30.60756)
+- Phone: 01012661145
+- WhatsApp: 01012661145
