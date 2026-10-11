@@ -141,8 +141,8 @@ try {
     assert.ok(!exp.includes(t.inquiry.noChannel), 'unconfigured channel notice is removed')
     const contact = page(lang, '/contact')
     for (const html of [contact, home]) {
-      assert.ok(html.includes('maps/dir/?api=1&amp;destination=30.446131%2C30.60756'), 'directions go to the supplied coordinates')
-      assert.ok(html.includes('maps/search/?api=1&amp;query=30.446131%2C30.60756'), 'map link uses the supplied coordinates')
+      assert.ok(html.includes('maps/dir/?api=1&amp;destination=Arab%20Olive%20Foundation'), 'directions go to the named listing')
+      assert.ok(html.includes('maps/search/?api=1&amp;query=Arab%20Olive%20Foundation'), 'map link opens the named listing')
       assert.ok(html.includes(t.location.title) && html.includes(t.location.directions) && html.includes('Arab Olive Foundation'))
       assert.ok(!html.includes('<iframe'), 'the map embed is not requested up front')
     }

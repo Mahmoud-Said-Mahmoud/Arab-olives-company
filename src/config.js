@@ -19,15 +19,18 @@ export const LOGO = asset('brand/logo.png')
 // The coordinates are the destination pin, not a map camera position.
 const LAT = 30.446131
 const LNG = 30.60756
+// Searching by the listing's name (with its city) opens the place card itself — name, photo,
+// phone — instead of a bare pin. The coordinates stay as the fallback shown on the page.
+const PLACE = encodeURIComponent('Arab Olive Foundation, Sadat City, Egypt')
 export const LOCATION = {
   name: 'Arab Olive Foundation', // the listing's name on Google Maps
   lat: LAT,
   lng: LNG,
-  mapUrl: `https://www.google.com/maps/search/?api=1&query=${LAT}%2C${LNG}`,
-  directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${LAT}%2C${LNG}`,
-  // Keyless Google Maps embed centred on the pin. To use the listing's official embed instead,
-  // open it in Google Maps -> Share -> Embed a map, and return that iframe's src from here.
-  embedUrl: (lang) => `https://www.google.com/maps?q=${LAT},${LNG}&z=15&hl=${lang}&output=embed`,
+  mapUrl: `https://www.google.com/maps/search/?api=1&query=${PLACE}`,
+  directionsUrl: `https://www.google.com/maps/dir/?api=1&destination=${PLACE}`,
+  // Keyless Google Maps embed of the listing. To use the official embed instead, open the
+  // listing in Google Maps -> Share -> Embed a map, and return that iframe's src from here.
+  embedUrl: (lang) => `https://www.google.com/maps?q=${PLACE}&z=16&hl=${lang}&output=embed`,
 }
 export const LOCATION_URL = LOCATION.mapUrl
 export const DESTINATIONS = [
