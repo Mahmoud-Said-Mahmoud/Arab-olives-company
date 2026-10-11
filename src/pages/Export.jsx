@@ -28,7 +28,7 @@ export default function Export() {
         <p className="lead">{t.exportPage.lead}</p>
       </header>
 
-      <div className="facts-row">
+      <div className="facts-row facts-row--two">
         <section>
           <h2>{t.exportPage.destinations}</h2>
           <ul className="dest-list">
@@ -44,10 +44,6 @@ export default function Export() {
               </li>
             ))}
           </ul>
-        </section>
-        <section>
-          <h2>{t.exportPage.packaging}</h2>
-          <p>{t.exportPage.packagingNote}</p>
         </section>
       </div>
 
