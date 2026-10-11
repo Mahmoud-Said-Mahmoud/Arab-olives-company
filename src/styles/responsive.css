@@ -1,0 +1,179 @@
+/* Phone and tablet refinements. Loaded last so it settles the small-screen layout in one place. */
+
+/* ---------- Jar scene ---------- */
+/* Captions sit in the gutters beside the jar: names only on phones, name + note on tablets. */
+.story[data-mode='compact'] .tag strong { font-size: 13.5px; line-height: 1.35; }
+.stage[data-size='phone'] .tag span { display: none; }
+.stage[data-size='tablet'] .tag strong { font-size: 18px; }
+.stage[data-size='tablet'] .tag span { font-size: 13.5px; line-height: 1.5; }
+.stage[data-size='tablet'] .hero-copy h2 { font-size: clamp(28px, 4.4vw, 40px); }
+.stage[data-size='tablet'] .panel-desc { max-width: 40ch; font-size: 17px; }
+.story[data-mode='compact'] .story-chapters { gap: 2px; }
+.story[data-mode='compact'] .story-chapters button { width: 40px; min-height: 40px; background: none; }
+
+/* ---------- Export story: one scroll-driven card ---------- */
+.xs--play { height: 260svh; }
+.xs--play .xs-stage {
+  gap: clamp(12px, 2.2svh, 22px);
+  padding: calc(var(--nav-h) + 14px) var(--gutter) 22px;
+}
+.xs--play .xs-head h2 { margin: 4px 0 12px; font-size: clamp(24px, min(6.4vw, 4.6svh), 40px); }
+.xs--play .xs-actions .btn { min-height: 44px; }
+.xs-card,
+.xs-caps,
+.xs-bar { width: 100%; max-width: 760px; margin-inline: auto; }
+.xs-card {
+  flex-shrink: 0;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: var(--paper);
+  box-shadow: 0 10px 30px rgba(36, 56, 43, 0.06);
+}
+.xs-card .xs-svg {
+  width: 100%;
+  height: auto;
+  max-height: 44svh;
+  aspect-ratio: 42 / 25;
+  border-radius: 14px;
+}
+.xs-caps { display: grid; }
+.xs-caps p {
+  grid-area: 1 / 1;
+  color: var(--muted);
+  font-size: 15.5px;
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s, transform 0.35s;
+}
+.xs-caps p.is-on { opacity: 1; transform: none; }
+.xs-caps span { display: block; color: var(--gold); font: 600 13px/1.4 system-ui, sans-serif; letter-spacing: 0.08em; }
+.xs-caps strong { display: block; margin-bottom: 2px; color: var(--olive); font: 600 22px/1.45 var(--display); }
+.xs-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.xs-bar i { height: 3px; border-radius: 2px; background: var(--line); transition: background 0.3s; }
+.xs-bar i.is-on { background: var(--gold); }
+
+@media (max-width: 600px) {
+  /* The map is drawn 650 units wide; on a phone its labels need to be larger to stay readable. */
+  .xs--play .xs-map text { font-size: 31px; }
+  .xs--play .xs-map .xs-market-note { font-size: 20px; }
+}
+@media (min-width: 601px) {
+  .xs-caps p { font-size: 17px; }
+  .xs-caps strong { font-size: 26px; }
+}
+
+/* ---------- Shared small-screen fixes ---------- */
+@media (max-width: 900px) {
+  /* A map with a minimum height must not become wider than the screen. */
+  .map-frame--large { min-height: 0; }
+  .map-frame { width: 100%; }
+
+  .disc > * { min-width: 0; }
+  /* The ring of forms has a fixed radius; on the narrowest phones it has to follow the screen. */
+  .pickle-ring { --r: clamp(84px, min(15vw, calc((100vw - 2 * var(--gutter) - 130px) / 2)), 172px); }
+  .page-actions { flex-wrap: wrap; }
+
+  /* Room for the assistant button, so it never covers the last line of the footer. */
+  .footer-bar { padding-bottom: 64px; }
+  .footer-contact .contact-icon-link { gap: 10px; }
+
+  .assistant-invite { width: min(250px, calc(100vw - 32px)); padding: 8px 10px; }
+  .assistant-invite-close { width: 40px; height: 40px; margin-block: -6px -10px; }
+  .assistant-invite-message { padding-top: 4px; font-size: 13.5px; }
+}
+
+/* Tablet portrait: the hero is centred, so let it end with its content instead of a blank half-screen. */
+@media (min-width: 600px) and (max-width: 900px) and (min-height: 900px) {
+  .hero { min-height: 0; padding-bottom: 72px; }
+}
+
+/* ---------- Menu: arrow beside "Products" that turns when its list opens ---------- */
+.nav-products-toggle { display: none; place-items: center; min-width: 44px; }
+.nav-products-toggle svg { transition: transform 0.25s; }
+.products-open .nav-products-toggle svg { transform: rotate(180deg); }
+@media (max-width: 1100px) {
+  .nav-products-toggle { display: grid; }
+}
+
+/* ---------- Family pages on phones: the ring of forms becomes a tidy grid ---------- */
+/* A ring needs more width than a phone has, so its medals ran into the title in the middle. */
+@media (max-width: 600px) {
+  .disc .pickle-ring {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px 8px;
+    width: 100%;
+    aspect-ratio: auto;
+  }
+  .disc .pickle-ring .pickle-hub {
+    position: static;
+    display: block;
+    width: 100%;
+    margin: 0 0 2px;
+    font-size: 19px;
+  }
+  .disc .pickle-ring button {
+    position: static;
+    width: calc((100% - 16px) / 3);
+    max-width: 112px;
+    margin: 0;
+    transform: translateY(14px) scale(0.9);
+  }
+  .disc.is-in .pickle-ring button { transform: none; }
+  .disc .pickle-ring .medal { width: min(92px, 100%); }
+}
+@media (max-width: 600px) and (prefers-reduced-motion: reduce) {
+  .disc .pickle-ring button { transform: none; }
+}
+
+/* ---------- Footer ---------- */
+/* Phone and WhatsApp rows: icon and number on one baseline with a clear gap, same rhythm as the other links. */
+.footer-grid a.contact-icon-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 0;
+  padding: 3px 0;
+}
+.footer-contact .contact-icon-link svg { color: var(--gold-soft); }
+.footer-contact bdi { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; }
+.footer li { padding: 6px 0; }
+.footer-brand .brand { font-family: var(--display); font-size: 24px; }
+.footer-bar { padding-block: 18px 22px; }
+/* If the call-to-action row is ever removed, the columns should not float under a blank band. */
+.footer-inner > .footer-grid:first-child { padding-top: 12px; }
+@media (max-width: 900px) {
+  .footer-bar { padding-bottom: 64px; }
+}
+@media (max-width: 520px) {
+  .footer-grid { gap: 32px 20px; }
+  /* Contact gets the full row, so the numbers never wrap. */
+  .footer-grid > :last-child { grid-column: 1 / -1; }
+  .footer-contact { display: flex; flex-wrap: wrap; gap: 0 28px; }
+}
+.footer-brand .brand,
+.footer-brand .brand span { display: block; }
+@media (max-width: 900px) {
+  /* Quote button and WhatsApp side by side instead of a lone icon on its own row. */
+  .footer-cta-actions { display: flex; flex-wrap: nowrap; align-items: center; gap: 12px; }
+  .footer-cta-actions .btn:not(.icon-action) { flex: 1; width: auto; }
+  .footer-cta-actions .btn.icon-action { width: 48px; height: 48px; }
+}
+@media (min-width: 600px) and (max-width: 900px) {
+  .footer-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* Phones and tablets: the whole footer is centred. */
+@media (max-width: 900px) {
+  .footer-grid,
+  .footer-cta { text-align: center; }
+  .footer-cta { justify-content: center; }
+  .footer-brand p { margin-inline: auto; }
+  .footer-contact { justify-content: center; }
+  .footer-bar { flex-direction: column-reverse; justify-content: center; text-align: center; }
+  /* The hover preview is anchored to the link's edge; centred links have no room for it. */
+  .footer-thumb { display: none; }
+}
