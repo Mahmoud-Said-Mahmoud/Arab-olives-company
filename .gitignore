@@ -1,3 +1,7 @@
 node_modules
 dist
 promo/
+# Working notes kept on the machine, not published
+HANDOFF.md
+PROJECT_BRIEF.md
+docs/*.md
