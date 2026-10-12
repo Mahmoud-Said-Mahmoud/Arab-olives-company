@@ -60,7 +60,7 @@ export default function Discovery({ cat, pick, onPick }) {
         const label = LABELS[choice.field][choice.value][lang]
         return <button key={key} type="button" style={{ '--i': i, '--n': choices.length }} aria-pressed={pick?.key === key}
           onClick={() => onPick(pick?.key === key ? null : { key, label, test: p => p[choice.field] === choice.value })}>
-          <span className="medal is-on"><img src={img(`catalog/${String(choice.id).padStart(2, '0')}.webp`)} alt="" width="520" height="598" loading="lazy" decoding="async" /></span>
+          <span className="medal is-on"><img src={img(`thumb/${String(choice.id).padStart(2, '0')}.webp`)} alt="" width="240" height="240" loading="lazy" decoding="async" /></span>
           <span>{label}</span>
         </button>
       })}
