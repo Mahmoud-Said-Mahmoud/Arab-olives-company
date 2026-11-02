@@ -19,49 +19,29 @@
 }
 .xs--play .xs-head h2 { margin: 4px 0 12px; font-size: clamp(24px, min(6.4vw, 4.6svh), 40px); }
 .xs--play .xs-actions .btn { min-height: 44px; }
-.xs-card,
-.xs-caps,
-.xs-bar { width: 100%; max-width: 760px; margin-inline: auto; }
 .xs-card {
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
   flex-shrink: 0;
-  padding: 10px;
+  padding: 6px;
   border: 1px solid var(--line);
-  border-radius: 22px;
+  border-radius: 24px;
   background: var(--paper);
-  box-shadow: 0 10px 30px rgba(36, 56, 43, 0.06);
+  box-shadow: 0 16px 40px rgba(36, 56, 43, 0.12);
 }
 .xs-card .xs-svg {
   width: 100%;
   height: auto;
   max-height: 44svh;
   aspect-ratio: 42 / 25;
-  border-radius: 14px;
+  border-radius: 18px;
 }
-.xs-caps { display: grid; }
-.xs-caps p {
-  grid-area: 1 / 1;
-  color: var(--muted);
-  font-size: 15.5px;
-  line-height: 1.7;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.35s, transform 0.35s;
-}
-.xs-caps p.is-on { opacity: 1; transform: none; }
-.xs-caps span { display: block; color: var(--gold); font: 600 13px/1.4 system-ui, sans-serif; letter-spacing: 0.08em; }
-.xs-caps strong { display: block; margin-bottom: 2px; color: var(--olive); font: 600 22px/1.45 var(--display); }
-.xs-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-.xs-bar i { height: 3px; border-radius: 2px; background: var(--line); transition: background 0.3s; }
-.xs-bar i.is-on { background: var(--gold); }
 
 @media (max-width: 600px) {
   /* The map is drawn 650 units wide; on a phone its labels need to be larger to stay readable. */
   .xs--play .xs-map text { font-size: 31px; }
   .xs--play .xs-map .xs-market-note { font-size: 20px; }
-}
-@media (min-width: 601px) {
-  .xs-caps p { font-size: 17px; }
-  .xs-caps strong { font-size: 26px; }
 }
 
 /* ---------- Shared small-screen fixes ---------- */

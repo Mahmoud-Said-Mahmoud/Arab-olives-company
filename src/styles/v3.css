@@ -352,13 +352,123 @@
   will-change: transform, opacity;
 }
 
+/* ---------- Studio realism: light, tabletop, glass, brine and shadows ---------- */
+/* Key light from the upper left; a warm tabletop fades in around the jar's base (--floor). */
+.story .stage-bg {
+  background:
+    radial-gradient(55% 45% at 30% 20%, rgba(255, 253, 246, 0.95), rgba(255, 253, 246, 0) 70%),
+    linear-gradient(180deg,
+      rgba(140, 112, 60, 0) calc(var(--floor, 70%) - 26vh),
+      rgba(140, 112, 60, 0.07) calc(var(--floor, 70%) - 1vh),
+      rgba(140, 112, 60, 0.04) calc(var(--floor, 70%) + 14vh),
+      rgba(140, 112, 60, 0) 100%),
+    radial-gradient(120% 90% at 50% 45%, #fffaf0 0%, var(--ivory) 55%, var(--ivory-deep) 100%);
+}
+
+/* Lens vignette and a little film grain. */
+.story .stage-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .28 0 0 0 0 .18 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 80% 75% at 50% 50%, transparent 55%, rgba(70, 52, 18, 0.13) 100%);
+}
+
+/* Contact shadow, a wider ambient shadow pushed away from the light, and the warm caustic
+   that light focused through a full jar throws on the table. */
+.story .jar-shadow {
+  background:
+    radial-gradient(14% 26% at 61% 52%, rgba(255, 232, 150, 0.32), rgba(255, 232, 150, 0) 100%),
+    radial-gradient(40% 20% at 50% 48%, rgba(35, 28, 10, 0.55), rgba(35, 28, 10, 0) 100%),
+    radial-gradient(closest-side at 57% 55%, rgba(60, 50, 20, 0.26), rgba(60, 50, 20, 0.08) 60%, rgba(60, 50, 20, 0));
+}
+
+/* Products inside are seen through glass and brine: a touch duller and softer. */
+.jar-fill-group img {
+  filter: drop-shadow(0 2px 2px rgba(36, 56, 43, 0.28)) saturate(0.92) brightness(0.95);
+}
+
+/* Brine with a bright meniscus line; it thins out as the jar empties (--full). */
+.jar-filling::after {
+  content: '';
+  position: absolute;
+  inset: 11% 0 0;
+  opacity: calc(0.3 + 0.7 * var(--full, 1));
+  mix-blend-mode: multiply;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0, rgba(255, 255, 255, 0) 1.2%),
+    linear-gradient(180deg, rgba(222, 208, 128, 0.22), rgba(170, 160, 70, 0.34));
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+/* Window reflections on the glass walls, masked to the glass itself. */
+.jar .jar-light {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.jar .jar-light span {
+  position: absolute;
+  inset: 0 -10%;
+  will-change: transform;
+  background:
+    linear-gradient(90deg,
+      transparent 9%,
+      rgba(255, 255, 255, 0.55) 12.5%,
+      rgba(255, 255, 255, 0.16) 15%,
+      rgba(255, 255, 255, 0.4) 16.5%,
+      transparent 20%,
+      transparent 80%,
+      rgba(255, 255, 255, 0.3) 85%,
+      transparent 88%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0, transparent 14%, transparent 88%, rgba(255, 255, 255, 0.25) 100%);
+}
+
+/* Lid: a real cast shadow, plus the soft shadow it throws on the rim as it lifts. */
+.story .lid img {
+  filter: drop-shadow(0 calc(5px * var(--u)) calc(7px * var(--u)) rgba(20, 30, 10, 0.3));
+}
+
+.lid-shadow {
+  z-index: 4;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  background: radial-gradient(closest-side, rgba(25, 30, 12, 0.5), rgba(25, 30, 12, 0.18) 60%, rgba(25, 30, 12, 0));
+}
+
+/* Floating products: a layered shadow on the product, and a soft one on the table below it. */
+.story .item img {
+  filter:
+    drop-shadow(0 calc(3px * var(--u)) calc(3px * var(--u)) rgba(40, 32, 8, 0.22))
+    drop-shadow(0 calc(14px * var(--u)) calc(16px * var(--u)) rgba(50, 40, 10, 0.18));
+}
+
+.item-shadow {
+  z-index: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  background: radial-gradient(closest-side, rgba(45, 36, 12, 0.3), rgba(45, 36, 12, 0.1) 60%, rgba(45, 36, 12, 0));
+}
+
 /* ---------- Export story ---------- */
+/* A bright morning scene: the jars are boxed at the factory, the truck drives the container
+   to the airport, it is loaded into a cargo plane, the plane takes off, and the routes are drawn. */
 .xs {
-  background: linear-gradient(180deg, var(--ivory-deep), var(--ivory));
+  background:
+    radial-gradient(70% 60% at 50% 0%, rgba(185, 219, 234, 0.35), transparent 70%),
+    linear-gradient(180deg, var(--ivory-deep), var(--ivory));
 }
 
 .xs--scroll {
-  height: 290svh;
+  height: 300svh;
 }
 
 .xs-stage {
@@ -367,9 +477,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(8px, 2svh, 22px);
+  gap: clamp(14px, 2.6svh, 28px);
   height: 100svh;
-  padding: calc(var(--nav-h) + 12px) var(--wrap) 16px;
+  padding: calc(var(--nav-h) + clamp(12px, 3svh, 28px)) var(--wrap) clamp(16px, 3svh, 32px);
   overflow: hidden;
 }
 
@@ -377,9 +487,18 @@
   padding: clamp(48px, 8vw, 96px) var(--wrap);
 }
 
+.xs-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 32px;
+}
+
 .xs-head h2 {
-  margin: 6px 0 14px;
-  font-size: clamp(28px, min(3.6vw, 5.4svh), 52px);
+  margin: 6px 0 0;
+  font-size: clamp(28px, min(3.6vw, 5.4svh), 54px);
+  line-height: 1.2;
 }
 
 .xs-actions {
@@ -387,15 +506,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 12px 20px;
-}
-
-.xs-soon {
-  padding: 6px 14px;
-  border: 1px dashed var(--gold);
-  border-radius: 999px;
-  color: var(--gold);
-  font-size: 14px;
-  font-weight: 600;
 }
 
 .xs-svg {
@@ -406,53 +516,31 @@
   overflow: hidden;
 }
 
-.xs-stage > .xs-svg {
-  flex: 1;
-  min-height: 0;
-  height: 100%;
-  max-height: none;
-}
-
 .xs-stage > .xs-head {
   flex-shrink: 0;
 }
 
-.xs-steps {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+/* Wide stage: the scene in a framed window. */
+.xs-frame {
+  position: relative;
+  flex: 0 1 auto;
+  width: 100%;
+  aspect-ratio: 1200 / 440;
+  min-height: 0;
+  max-height: 100%;
+  border: 1px solid rgba(36, 56, 43, 0.1);
+  border-radius: 28px;
+  background: #b9dbea;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(36, 56, 43, 0.16), 0 4px 14px rgba(36, 56, 43, 0.06);
+  isolation: isolate;
 }
 
-.xs-steps li {
-  padding-top: 10px;
-  border-top: 2px solid var(--line);
-  color: var(--muted);
-  font-size: 14.5px;
-  opacity: 0.55;
-  transition: opacity 0.3s, border-color 0.3s;
-}
-
-.xs-steps [aria-current] {
-  border-color: var(--gold);
-  opacity: 1;
-}
-
-.xs-steps strong,
-.xs-frames strong {
-  display: block;
-  color: var(--olive);
-  font: 600 19px/1.4 var(--display);
-}
-
-.xs-note {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.xs-note a {
-  color: var(--olive);
-  font-weight: 600;
-  text-underline-offset: 4px;
+.xs-frame .xs-svg {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  max-height: none;
 }
 
 .xs-frames {
@@ -463,33 +551,72 @@
 }
 
 .xs-frames li {
-  padding: 12px 14px 16px;
+  padding: 6px;
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 20px;
   background: var(--paper);
-  color: var(--muted);
-  font-size: 14.5px;
 }
 
 .xs-frames .xs-svg {
   max-height: none;
-  margin-bottom: 10px;
-  border-radius: 10px;
+  border-radius: 14px;
 }
 
-/* the drawing: every position is a function of --p */
-.xs-ground { fill: #eadfc6; }
-.xs-water { fill: #cddfd9; }
-.xs-line { fill: none; stroke: var(--olive); stroke-width: 1.4; }
+/* ---------- The drawing: every position is a function of --p ---------- */
+.xs-sun {
+  transform: translateY(calc(var(--p) * -14px));
+}
+
+.xs-cloud {
+  fill: #fff;
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 6px rgba(80, 120, 140, 0.15));
+  animation: xs-drift 28s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -6s);
+}
+
+@keyframes xs-drift {
+  from { translate: -24px 0; }
+  to { translate: 24px 0; }
+}
+
+.xs-hills-far { fill: #b7c9a0; transform: translateX(calc(var(--p) * -30px)); }
+.xs-hills { fill: #98b07c; }
+.xs-trees { fill: #5d7a45; }
+.xs-trunk { fill: #6b5236; }
+.xs-leaf-light { fill: #7a9659; }
+
+.xs-road { fill: #7b8073; }
+.xs-lane { fill: none; stroke: #fdfaf3; stroke-width: 2; stroke-dasharray: 18 16; }
 
 .xs-factory {
-  opacity: calc(0.4 + 0.6 * clamp(0, calc((var(--p) - 0.1) / 0.08), 1));
+  opacity: calc(0.75 + 0.25 * clamp(0, calc((var(--p) - 0.1) / 0.08), 1));
 }
 
-.xs-wall { fill: #f6efde; stroke: var(--olive); stroke-width: 1.4; stroke-linejoin: round; }
+.xs-chimney { fill: #e9dfca; stroke: var(--olive); stroke-width: 1.2; }
+.xs-chimney-band { fill: #b8473a; }
+
+.xs-smoke circle {
+  fill: rgba(255, 255, 255, 0.85);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: xs-smoke 4.5s ease-out infinite;
+  animation-delay: calc(var(--i) * -1.5s);
+}
+
+@keyframes xs-smoke {
+  0% { transform: translate(0, 0) scale(0.6); opacity: 0.9; }
+  100% { transform: translate(26px, -60px) scale(2.4); opacity: 0; }
+}
+
+.xs-wall,
+.xs-hall-wall { fill: #f6efde; stroke: var(--olive); stroke-width: 1.4; stroke-linejoin: round; }
+.xs-roof-light { fill: none; stroke: rgba(36, 56, 43, 0.25); stroke-width: 1.2; }
 .xs-wall-2 { fill: #ede3cb; stroke: var(--olive); stroke-width: 1.4; }
-.xs-door { fill: #33503d; }
-.xs-pane { fill: #cddfd9; stroke: var(--olive); stroke-width: 1; }
+.xs-door { fill: #4f6e57; }
+.xs-door-lines { stroke: rgba(255, 255, 255, 0.18); stroke-width: 1; }
+.xs-pane { fill: #b9dbea; stroke: var(--olive); stroke-width: 1; }
+.xs-pane-shine { stroke: rgba(255, 255, 255, 0.8); stroke-width: 2; }
 .xs-sign { fill: var(--paper); stroke: var(--gold-soft); }
 
 .xs-carton {
@@ -504,12 +631,13 @@
   mix-blend-mode: multiply;
 }
 
-.xs-box { fill: #c9a56c; }
-.xs-box-tape { fill: #b8935a; }
+.xs-box { filter: drop-shadow(0 3px 3px rgba(60, 40, 10, 0.25)); }
+.xs-box-tape { fill: #a47c43; }
+.xs-box-print { fill: none; stroke: rgba(70, 48, 18, 0.45); stroke-width: 2; stroke-linecap: round; }
 
 .xs-box-flap {
-  fill: #d8b780;
-  stroke: #b8935a;
+  fill: #e6c48b;
+  stroke: #a47c43;
   opacity: clamp(0, calc((var(--p) - 0.135) / 0.025), 1);
 }
 
@@ -518,11 +646,25 @@
   transform: translateX(calc(var(--d) * 330px));
 }
 
+.xs-truck-shadow { fill: rgba(30, 40, 20, 0.25); }
+.xs-chassis { fill: #2a3a2e; }
 .xs-cab { fill: #33503d; }
-.xs-glass { fill: #cddfd9; }
-.xs-bed { fill: var(--olive); }
-.xs-wheel { fill: var(--ink); stroke: #f6efde; stroke-width: 3; }
+.xs-glass { fill: #cfe6ef; }
+.xs-cab-line { stroke: rgba(0, 0, 0, 0.2); stroke-width: 1.2; }
+.xs-headlight { fill: #fff3c8; }
 
+/* Wheels turn with the distance driven. */
+.xs-wheel {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: rotate(calc(var(--d) * 1500deg));
+}
+
+.xs-wheel circle { fill: #1d2a20; stroke: #f6efde; stroke-width: 2.5; }
+.xs-wheel .xs-hub { fill: #b9b6a6; stroke: none; }
+.xs-spoke { stroke: #1d2a20; stroke-width: 1.4; }
+
+/* Container: on the truck to the port, lifted by the crane, set on the ship, and away. */
 .xs-container {
   --d: clamp(0, calc((var(--p) - 0.24) / 0.26), 1);
   --f: clamp(0, calc((var(--p) - 0.5) / 0.07), 1);
@@ -531,26 +673,96 @@
   --h: clamp(0, calc((var(--p) - 0.72) / 0.12), 1);
   transform: translate(calc(var(--d) * 330px + var(--e) * 200px + var(--h) * 300px), calc((var(--g) - var(--f)) * 96px + var(--g) * 2px));
   opacity: clamp(0, calc((var(--p) - 0.2) / 0.03), 1);
+  filter: drop-shadow(0 3px 4px rgba(30, 40, 20, 0.25));
 }
 
-.xs-container rect { fill: var(--gold); }
-.xs-container path { fill: none; stroke: rgba(0, 0, 0, 0.16); stroke-width: 1.4; }
+.xs-ribs { fill: none; stroke: rgba(70, 48, 18, 0.35); stroke-width: 1.4; }
+.xs-container-edge { stroke: rgba(255, 240, 200, 0.55); stroke-width: 1.4; }
 
-.xs-crane path { fill: none; stroke: var(--olive); stroke-width: 3; stroke-linejoin: round; }
+.xs-water { opacity: 0.95; }
+.xs-quay { fill: #b9b4a2; }
+
+.xs-wave {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.45);
+  stroke-width: 1.4;
+  animation: xs-wave 6s linear infinite;
+}
+
+.xs-wave--2 {
+  stroke: rgba(255, 255, 255, 0.25);
+  animation-duration: 9s;
+  animation-direction: reverse;
+}
+
+@keyframes xs-wave {
+  to { translate: 60px 0; }
+}
+
+.xs-crane-frame { fill: none; stroke: #c9493a; stroke-width: 3.2; stroke-linejoin: round; stroke-linecap: round; }
+.xs-crane-truss { fill: none; stroke: #c9493a; stroke-opacity: 0.6; stroke-width: 1.2; }
+.xs-crane-cab { fill: #33503d; stroke: #c9493a; stroke-width: 1; }
 
 .xs-ship {
   transform: translateX(calc(clamp(0, calc((var(--p) - 0.72) / 0.12), 1) * 300px));
 }
 
-.xs-hull { fill: var(--olive); }
-.xs-bridge { fill: #f6efde; stroke: var(--olive); stroke-width: 1.4; }
+.xs-hull { fill: #24382b; }
+.xs-waterline { fill: #b8473a; }
+.xs-bridge { fill: #fdfaf3; stroke: var(--olive); stroke-width: 1; }
+.xs-funnel { fill: #33503d; }
+.xs-funnel-band { fill: #a9853f; }
+.xs-ship-pane { fill: #b9dbea; stroke: var(--olive); stroke-width: 1; }
+.xs-portholes { stroke: #fdfaf3; stroke-width: 4; stroke-linecap: round; }
+.xs-cargo { stroke: rgba(0, 0, 0, 0.2); stroke-width: 1; }
+.xs-cargo--a { fill: #4f6e57; }
+.xs-cargo--b { fill: #b8473a; }
+.xs-cargo--c { fill: #6f8f9c; }
 
+/* Background plane: rolls along the airstrip while the truck drives, then climbs away. */
+.xs-strip { fill: #b9b4a2; }
+
+.xs-plane {
+  --taxi: clamp(0, calc((var(--p) - 0.26) / 0.08), 1);
+  --up: clamp(0, calc((var(--p) - 0.34) / 0.3), 1);
+  transform: translate(calc(var(--taxi) * 40px + var(--up) * var(--up) * 700px), calc(var(--up) * var(--up) * -280px));
+}
+
+.xs-plane-body {
+  transform-box: fill-box;
+  transform-origin: 70% 80%;
+  transform: rotate(calc(clamp(0, calc((var(--p) - 0.34) / 0.05), 1) * -12deg));
+}
+
+.xs-plane-shadow {
+  fill: rgba(30, 40, 20, 0.2);
+  opacity: calc(1 - clamp(0, calc((var(--p) - 0.34) / 0.03), 1));
+}
+
+.xs-gear { stroke: #5b6158; stroke-width: 2.4; }
+.xs-gear-wheel { fill: #1d2a20; }
+
+.xs-gear,
+.xs-gear-wheel {
+  opacity: calc(1 - clamp(0, calc((var(--p) - 0.4) / 0.03), 1));
+}
+
+.xs-tail { fill: #24382b; }
+.xs-tail-stripe { fill: #a9853f; }
+.xs-fuselage { stroke: rgba(36, 56, 43, 0.35); stroke-width: 1; }
+.xs-cheatline { fill: none; stroke: #a9853f; stroke-width: 3; }
+.xs-cockpit { fill: #33503d; }
+.xs-windows { stroke: #5c7a8a; stroke-width: 4.5; stroke-linecap: round; }
+.xs-wing { fill: #dfe3da; stroke: rgba(36, 56, 43, 0.35); stroke-width: 1; }
+.xs-engine,
+.xs-stabilizer { fill: #24382b; }
+
+/* ---------- Map ---------- */
 .xs-map {
   opacity: clamp(0, calc((var(--p) - 0.8) / 0.07), 1);
 }
 
-.xs-map rect { fill: #fbf6ea; }
-.xs-grid { fill: none; stroke: rgba(36, 56, 43, 0.12); stroke-width: 1; stroke-dasharray: 2 7; }
+.xs-route-track { fill: none; stroke: rgba(36, 56, 43, 0.16); stroke-width: 1; stroke-dasharray: 3 6; }
 
 .xs-route {
   fill: none;
@@ -561,18 +773,50 @@
   stroke-dashoffset: calc(1 - clamp(0, calc((var(--p) - 0.84 - var(--i) * 0.015) / 0.09), 1));
 }
 
-.xs-route-track { fill: none; stroke: rgba(36, 56, 43, 0.12); stroke-width: 1; }
-.xs-market-ring { fill: #fbf6ea; stroke: var(--gold); stroke-width: 1; }
 .xs-market--main .xs-route { stroke: var(--olive); stroke-width: 3; }
-.xs-market--main .xs-dot { fill: var(--olive); }
-.xs-map .xs-market-note { font-size: 13px; font-weight: 400; fill: var(--muted); }
 
+.xs-map-plane {
+  fill: var(--olive);
+  opacity: clamp(0, calc((var(--p) - 0.92) / 0.05), 1);
+}
+
+.xs-market-ring { fill: var(--paper); stroke: var(--gold); stroke-width: 1.4; }
+.xs-market--main .xs-dot { fill: var(--olive); }
 .xs-dot { fill: var(--gold); }
+
+.xs-pulse {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: xs-pulse 2.4s ease-out infinite;
+  animation-delay: calc(var(--i, 0) * -0.5s);
+}
+
+@keyframes xs-pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
 .xs-origin { fill: var(--olive); stroke: var(--gold); stroke-width: 3; }
+.xs-origin-badge { fill: #fff; filter: drop-shadow(0 6px 14px rgba(36, 56, 43, 0.18)); }
 
 .xs-map text {
   fill: var(--olive);
   font: 600 22px var(--body);
+  paint-order: stroke;
+  stroke: #fdfaf3;
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+
+.xs-map .xs-market-note { font-size: 13px; font-weight: 500; fill: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .xs-cloud,
+  .xs-smoke circle,
+  .xs-pulse { animation: none; }
 }
 
 /* ---------- Product cards as links, homepage picks ---------- */
@@ -1479,5 +1723,383 @@
 
   .fam {
     transform: none;
+  }
+}
+
+/* ---------- Family crates: one wooden export crate per family, its jar inside ---------- */
+.bay--green { --tone: #5e7a35; }
+.bay--black { --tone: #3a2c37; }
+.bay--pickle { --tone: #a6871d; }
+.bay--pepper { --tone: #b0402f; }
+
+.dock {
+  position: relative;
+  margin-top: 8px;
+  padding: 0 clamp(6px, 1.6vw, 20px);
+}
+
+.crates {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(12px, 2.2vw, 30px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Every size inside a crate is in cqi: one unit is 1% of the crate's width. */
+.crate-item {
+  container-type: inline-size;
+}
+
+.crate {
+  position: relative;
+  display: block;
+  height: 150cqi;
+  color: inherit;
+  text-decoration: none;
+}
+
+.crate:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 6px;
+  border-radius: 6px;
+}
+
+/* ---- The crate ---- */
+.crate-front {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 80cqi;
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg,
+      transparent 0 calc(33.3% - 1px), rgba(60, 35, 10, 0.5) calc(33.3% - 1px) 33.3%,
+      transparent 33.3% calc(66.6% - 1px), rgba(60, 35, 10, 0.5) calc(66.6% - 1px) 66.6%,
+      transparent 66.6%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 2px, transparent 2px 9px, rgba(70, 40, 10, 0.05) 9px 11px, transparent 11px 23px),
+    linear-gradient(180deg, #dcb47c, #cc9f64 33%, #d6aa70 33.4%, #c6965c 66.6%, #d2a46a 67%, #bf8f57);
+  box-shadow:
+    0 -1.6cqi 0 #6b4a2a,
+    0 18px 26px -14px rgba(40, 25, 5, 0.55);
+}
+
+/* Corner frame and nails. */
+.crate-front::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 4.4cqi #a97a49, inset 0 0 0 calc(4.4cqi + 1px) rgba(60, 35, 10, 0.4);
+  background:
+    radial-gradient(circle, #5a4630 0 0.9cqi, transparent 1.1cqi) 0 0 / 4.4cqi 4.4cqi no-repeat,
+    radial-gradient(circle, #5a4630 0 0.9cqi, transparent 1.1cqi) 100% 0 / 4.4cqi 4.4cqi no-repeat,
+    radial-gradient(circle, #5a4630 0 0.9cqi, transparent 1.1cqi) 0 100% / 4.4cqi 4.4cqi no-repeat,
+    radial-gradient(circle, #5a4630 0 0.9cqi, transparent 1.1cqi) 100% 100% / 4.4cqi 4.4cqi no-repeat;
+  pointer-events: none;
+}
+
+.crate-front > * {
+  position: absolute;
+}
+
+/* Inked marks: multiplied so the wood grain shows through. */
+.crate-stamp {
+  top: 8cqi;
+  inset-inline-end: 8cqi;
+  padding: 0.6cqi 2.2cqi;
+  border: 0.7cqi solid #b8392b;
+  border-radius: 1cqi;
+  color: #b8392b;
+  font: 800 4cqi/1.3 system-ui, sans-serif;
+  letter-spacing: 0.12em;
+  opacity: 0.85;
+  mix-blend-mode: multiply;
+  transform: rotate(-6deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+
+.crate-name {
+  top: 18cqi;
+  inset-inline-start: 8cqi;
+  inset-inline-end: 8cqi;
+  color: rgba(42, 26, 10, 0.86);
+  font: 700 9.5cqi/1.2 var(--display);
+  mix-blend-mode: multiply;
+}
+
+.crate-text {
+  top: 32cqi;
+  inset-inline-start: 8cqi;
+  inset-inline-end: 8cqi;
+  color: rgba(50, 30, 10, 0.72);
+  font-size: 4.6cqi;
+  line-height: 1.45;
+}
+
+/* Shipping ticket stapled to the crate. */
+.crate-ticket {
+  bottom: 8cqi;
+  inset-inline-start: 8cqi;
+  display: flex;
+  flex-direction: column;
+  gap: 1cqi;
+  padding: 1.8cqi 3cqi 2cqi;
+  border-inline-start: 1.6cqi solid var(--tone);
+  border-radius: 1cqi;
+  background: #fffdf6;
+  box-shadow: 0 1px 3px rgba(40, 25, 5, 0.35);
+  transform: rotate(1.5deg);
+  transition: transform 0.4s;
+}
+
+.crate-route {
+  color: var(--ink);
+  font: 800 4.2cqi/1.2 ui-monospace, 'Cascadia Mono', Consolas, monospace;
+  letter-spacing: 0.06em;
+  direction: ltr;
+}
+
+.crate-count {
+  color: var(--tone);
+  font: 700 4.4cqi/1.3 var(--body);
+}
+
+/* Physical sides: these marks set their own direction, which would flip logical insets. */
+.crate-mark,
+.crate-open {
+  bottom: 9cqi;
+  right: 8cqi;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.crate-mark {
+  color: rgba(42, 26, 10, 0.75);
+  font: 800 3.4cqi/1 system-ui, sans-serif;
+  letter-spacing: 0.1em;
+  direction: ltr;
+  mix-blend-mode: multiply;
+}
+
+.crate-open {
+  padding: 1.6cqi 3.4cqi;
+  border-radius: 99px;
+  background: var(--tone);
+  color: #fff;
+  font: 700 4.6cqi/1.2 var(--body);
+  opacity: 0;
+  transform: translateY(2cqi);
+}
+
+[dir='rtl'] :is(.crate-mark, .crate-open) {
+  right: auto;
+  left: 8cqi;
+}
+
+/* Lid board, hinged on the crate's back edge and left ajar. */
+.crate-lid {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  bottom: 80cqi;
+  width: 100cqi;
+  height: 11cqi;
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, transparent 49%, rgba(60, 35, 10, 0.45) 49% 51%, transparent 51%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 2px, transparent 2px 11px),
+    linear-gradient(180deg, #d9b078, #c08f56);
+  box-shadow: inset 0 0 0 1.2cqi #a97a49, 0 6px 10px -6px rgba(40, 25, 5, 0.5);
+  transform-origin: 0 100%;
+  transform: rotate(-16deg);
+  transition: transform 0.6s cubic-bezier(0.25, 0.9, 0.3, 1.15);
+}
+
+[dir='rtl'] .crate-lid {
+  transform-origin: 100% 100%;
+  transform: rotate(16deg);
+}
+
+/* ---- The jar, standing in the crate and peeking over its edge ---- */
+.cjar {
+  position: absolute;
+  z-index: 1;
+  left: 21cqi;
+  bottom: 32cqi;
+  display: block;
+  width: 58cqi;
+  aspect-ratio: 816 / 950;
+  container-type: inline-size;
+  transform-origin: 50% 100%;
+  transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.25, 1.2);
+}
+
+.cjar > img,
+.cjar > span {
+  position: absolute;
+}
+
+/* Contents, packed behind the glass, in a little brine. */
+.cjar-fill {
+  inset: 2% 2.5% 4.5%;
+  overflow: hidden;
+  border-radius: 16% 16% 13% 13% / 12% 12% 9% 9%;
+  background: linear-gradient(180deg, rgba(232, 220, 150, 0.45), rgba(196, 182, 96, 0.55));
+}
+
+.cjar-fill img {
+  position: absolute;
+  height: auto;
+  filter: drop-shadow(0 2px 2px rgba(36, 40, 20, 0.3)) saturate(0.95);
+}
+
+.cjar-glass {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.85;
+}
+
+/* Label in the band of the source jar's label, with the family's colour block and name. */
+.cjar-label {
+  top: 30%;
+  left: 1.4%;
+  right: 1.4%;
+  height: 38.7%;
+  display: flex;
+  overflow: hidden;
+  background: #f8f2e7;
+  box-shadow: inset 0 3px 0 -1px var(--tone), inset 0 -3px 0 -1px var(--tone);
+}
+
+/* Cylinder shading so the flat label wraps round the jar. */
+.cjar-label::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.22), transparent 16%, rgba(255, 255, 255, 0.35) 34%, transparent 52%, transparent 78%, rgba(0, 0, 0, 0.24));
+  pointer-events: none;
+}
+
+.cjar-band {
+  flex: 0 0 15%;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 3px, transparent 3px 7px),
+    var(--tone);
+}
+
+.cjar-face {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2cqi;
+  padding: 0 4cqi;
+  text-align: center;
+}
+
+.cjar-face img {
+  width: 30cqi;
+  height: auto;
+}
+
+.cjar-face strong {
+  color: var(--tone);
+  font: 700 10.5cqi / 1.15 var(--display);
+}
+
+.cjar-lid {
+  top: -12.6%;
+  left: 2%;
+  width: 96%;
+  height: 14.5%;
+  filter: drop-shadow(0 3px 3px rgba(20, 30, 10, 0.3));
+}
+
+/* ---- Pointing at a crate: the lid swings open and the jar rises out ---- */
+.crate:is(:hover, :focus-visible) .cjar { transform: translateY(-34cqi); }
+.crate:is(:hover, :focus-visible) .crate-lid { transform: rotate(-40deg); }
+[dir='rtl'] .crate:is(:hover, :focus-visible) .crate-lid { transform: rotate(40deg); }
+.crate:is(:hover, :focus-visible) .crate-stamp { transform: rotate(-9deg) scale(1.08); }
+.crate:is(:hover, :focus-visible) .crate-ticket { transform: rotate(-1deg); }
+.crate:is(:hover, :focus-visible) .crate-mark { opacity: 0; transform: translateY(-2cqi); }
+.crate:is(:hover, :focus-visible) .crate-open { opacity: 1; transform: none; }
+
+/* Pallet the crates stand on. */
+.pallet {
+  height: 30px;
+  margin: 0 calc(clamp(6px, 1.6vw, 20px) * -1);
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, #b0814e 0 11px, #6e4d2a 11px 12px, transparent 12px),
+    repeating-linear-gradient(90deg, #8a6339 0 46px, transparent 46px calc(25% - 0px)) 0 100% / 100% 18px no-repeat;
+  box-shadow: 0 22px 26px -16px rgba(40, 25, 5, 0.55);
+}
+
+/* Small crates: drop the finer print. */
+@container (max-width: 230px) {
+  .crate-text,
+  .crate-mark,
+  .crate-open {
+    display: none;
+  }
+
+  .crate-name {
+    top: 20cqi;
+    font-size: 11cqi;
+  }
+
+  .crate-stamp {
+    font-size: 5cqi;
+  }
+
+  .crate-route,
+  .crate-count {
+    font-size: 5cqi;
+  }
+}
+
+/* Delivering the crates as the section comes into view. */
+.families:not(.is-in) .crate-item {
+  opacity: 0;
+}
+
+.families.is-in .crate-item {
+  animation: crate-in 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.15) backwards;
+  animation-delay: calc(var(--n) * 0.12s);
+}
+
+@keyframes crate-in {
+  from { opacity: 0; translate: 0 40px; }
+}
+
+@media (max-width: 900px) {
+  .crates {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 0;
+  }
+
+  .crate-item:nth-child(-n + 2) {
+    padding-bottom: 30px;
+    background: linear-gradient(180deg, transparent calc(100% - 30px), #b0814e calc(100% - 30px) calc(100% - 19px), transparent calc(100% - 19px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .families .crate-item {
+    opacity: 1;
+    animation: none !important;
+  }
+
+  .cjar,
+  .crate-lid,
+  .crate-stamp,
+  .crate-ticket {
+    transition: none;
   }
 }

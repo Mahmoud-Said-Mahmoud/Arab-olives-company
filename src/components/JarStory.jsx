@@ -161,7 +161,7 @@ function tagArrowGeometry(L, slot, ix, iy, hw, hh, tag) {
 export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
   const sectionRef = useRef(null)
   const stageRef = useRef(null)
-  const els = useRef({ items: [], fills: [], spots: [], panels: [], tags: [], arrows: [], heads: [], chapters: [] })
+  const els = useRef({ items: [], shadows: [], fills: [], spots: [], panels: [], tags: [], arrows: [], heads: [], chapters: [] })
   const layoutRef = useRef(null)
   const applyRef = useRef(null)
   const [mode, setMode] = useState('wide')
@@ -185,6 +185,8 @@ export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
       setMode(L.wide ? 'wide' : 'compact')
       stage.style.setProperty('--u', L.u.toFixed(4))
       stage.dataset.size = L.wide ? 'wide' : L.tablet ? 'tablet' : 'phone'
+      // The tabletop meets the backdrop at the jar's base.
+      stage.style.setProperty('--floor', `${(L.top + L.jh).toFixed(1)}px`)
 
       const jarLeft = L.cx - L.jw / 2
       Object.assign(e.jar.style, { width: `${L.jw}px`, height: `${L.jh}px`, transform: `translate3d(${jarLeft}px, ${L.top}px, 0)` })
@@ -194,6 +196,13 @@ export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
         transform: `translate3d(${L.cx - L.jw * 0.625}px, ${L.top + L.jh - L.jw * 0.085}px, 0)`,
       })
       Object.assign(e.lid.style, { width: `${LID_W * L.s}px`, height: `${LID_H * L.s}px` })
+      // Soft shadow the lifted lid casts on the jar's mouth.
+      const lsw = LID_W * L.s * 1.05
+      const lsh = LID_W * L.s * 0.2
+      Object.assign(e.lidShadow.style, {
+        width: `${lsw}px`, height: `${lsh}px`,
+        left: `${L.cx - lsw / 2}px`, top: `${L.top + (LID_DY + LID_H) * L.s - lsh * 0.6}px`,
+      })
 
       STORY.forEach((c, i) => {
         const k = L.chapters.indexOf(c)
@@ -216,6 +225,7 @@ export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
           left: `${jarLeft + (sx - sr) * L.s}px`, top: `${L.top + (sy - sr) * L.s}px`,
         })
         Object.assign(el.style, { width: `${w}px`, height: `${h}px`, left: `${-w / 2}px`, top: `${-h / 2}px` })
+        Object.assign(e.shadows[i].style, { width: `${w * 0.8}px`, height: `${w * 0.16}px`, left: `${-w * 0.4}px`, top: `${-w * 0.08}px` })
         el._w = w
         el._h = h
         const slot = L.slots[k]
@@ -299,9 +309,15 @@ export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
       // A band of highlights slides across the lid while it turns, and back as it closes.
       e.sheen.style.transform = `translate3d(${(-ease(turn) + reseat) * 50}%, 0, 0)`
       e.sheen.style.opacity = Math.max(Math.sin(Math.PI * turn) * (1 - lift), Math.sin(Math.PI * seg(sf, 1.55, 1.95)))
+      // The higher the lid, the softer and fainter its shadow on the rim.
+      e.lidShadow.style.opacity = 0.55 * Math.min(1, lift * 5) * (1 - 0.75 * lift)
+      e.lidShadow.style.transform = `scale(${1 + 0.45 * lift}, ${1 + 0.8 * lift})`
+      // Window reflections drift a little across the glass as the page scrolls, as if the camera moved.
+      e.reflect.style.transform = `translate3d(${(0.5 - state.p) * 8}%, 0, 0)`
 
       // Outro: captions clear first, then the clusters fly home in reverse order.
       const gone = seg(sf, 0.3, 0.5)
+      let full = 0
 
       // Products
       for (let i = 0; i < STORY.length; i++) {
@@ -313,7 +329,9 @@ export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
         const home = 0
         // Running the release time backwards sends the cluster home along the path it left by.
         const tc = clamp01(sp - INTRO - k) * (1 - home)
-        e.fills[i].style.opacity = 1 - ease(seg(tc, 0.14, 0.44))
+        const rise = ease(seg(tc, 0.14, 0.44))
+        e.fills[i].style.opacity = 1 - rise
+        full += 1 - rise
         const next = last ? 0 : clamp01(sp - INTRO - k - 1)
         const pt = flightPoint(L, slot, tc, STORY[i].id)
         const settled = ease(seg(tc, 0.42, 0.8))
@@ -332,8 +350,16 @@ export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
         const fr = (Math.sin(time * 0.7 + i * 2.3) * 2.2 + (i % 2 ? 7 : -7)) * settled
         const ix = L.cx + pt.x
         const iy = L.top + pt.y + fy
-        el.style.transform = `translate3d(${ix}px, ${iy}px, 0) rotate(${fr}deg) scale(${scale})`
+        // A flat cut-out turned a few degrees in depth reads as a solid tumbling through the air.
+        const rx = 10 * Math.sin(Math.PI * rise) + Math.sin(time * 0.55 + i) * 4 * settled
+        const ry = Math.sign(slot.x) * 22 * Math.sin(Math.PI * settled) + Math.sin(time * 0.45 + i * 1.3) * 7 * settled
+        el.style.transform = `translate3d(${ix}px, ${iy}px, 0) perspective(${(900 * u).toFixed(0)}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) rotate(${fr}deg) scale(${scale})`
         el.style.opacity = lerp(1, 0.9, quiet)
+        // Ground shadow under a floating product: tighter and darker as it bobs down, softer as it rises.
+        const bob = L.floatAmp ? fy / L.floatAmp : 0
+        const shy = iy - fy + (el._h * scale) / 2 + 16 * u
+        e.shadows[i].style.transform = `translate3d(${ix.toFixed(1)}px, ${shy.toFixed(1)}px, 0) scale(${(scale * (1 + 0.1 * bob)).toFixed(3)})`
+        e.shadows[i].style.opacity = (settled * settled * (0.75 + 0.25 * bob) * lerp(1, 0.75, quiet)).toFixed(3)
         el.style.zIndex = pt.out ? (next > 0 ? 5 : 6) : 2
         // Small screens caption a settled product right under it; wide screens use the side caption.
         el.lastChild.style.opacity = 0
@@ -381,6 +407,8 @@ export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
           head.style.opacity = seg(line, 0.9, 1) * alpha
         }
       }
+      // The brine thins out as the jar empties.
+      e.rimBack.style.setProperty('--full', (full / Math.max(1, N)).toFixed(3))
     }
 
     applyLayout()
@@ -454,6 +482,10 @@ export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
 
         <div ref={(n) => (e.shadow = n)} className="jar-shadow" aria-hidden="true" />
 
+        {STORY.map((c, i) => (
+          <span key={c.id} ref={(n) => (e.shadows[i] = n)} className="item-shadow" style={{ opacity: 0 }} aria-hidden="true" />
+        ))}
+
         <div ref={(n) => (e.rimBack = n)} className="rim-back jar-filling" aria-hidden="true">
           {STORY.map((c, i) => <div key={c.id} className="jar-fill-group" ref={n => (e.fills[i] = n)}>
             {FILL.filter(piece => piece.family === i).map((piece, j) => <img key={j} src={img(c.image)} alt="" width={c.size.w} height={c.size.h}
@@ -471,7 +503,12 @@ export default function JarStory({ t, lang, onViewCategory, onNavigate }) {
         <div ref={(n) => (e.jar = n)} className="jar">
           <img className="jar-glass" src={img(LAYERS.glass)} alt={t.story.jarAlt} width={BODY_W} height={BODY_H} decoding="async" draggable="false" />
           <img className="jar-logo" src={LOGO} alt="" width="294" height="208" decoding="async" draggable="false" />
+          <div className="jar-light" aria-hidden="true" style={{ WebkitMaskImage: `url(${img(LAYERS.glass)})`, maskImage: `url(${img(LAYERS.glass)})` }}>
+            <span ref={(n) => (e.reflect = n)} />
+          </div>
         </div>
+
+        <div ref={(n) => (e.lidShadow = n)} className="lid-shadow" style={{ opacity: 0 }} aria-hidden="true" />
 
         {STORY.map((c, i) => (
           <span key={c.id} ref={(n) => (e.spots[i] = n)} className="jar-spot" style={{ opacity: 0 }} aria-hidden="true" />

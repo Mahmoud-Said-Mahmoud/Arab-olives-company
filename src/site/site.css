@@ -1,0 +1,174 @@
+/* Utilities are !important so that inline styles set by GSAP and Framer Motion are the only
+   thing that can override them, never stray element rules. */
+@import 'tailwindcss' important;
+@source './';
+
+/* Brand tokens, from the logo: the black serif A, its olive leaves and the young-leaf lime. */
+@theme {
+  --color-ink: #0b0e0a;
+  --color-ink-2: #141a12;
+  --color-olive: #3f5b26;
+  --color-leaf: #6f8c35;
+  --color-lime: #c4dc62;
+  --color-cream: #f4f1e8;
+  --color-mist: #b8c0ad;
+  --font-display: 'Inter', 'Alexandria', system-ui, sans-serif;
+  --font-sans: 'Inter', 'Alexandria', system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+  }
+
+  /* Arabic in Alexandria: it carries Latin too, so mixed lines stay in one face. */
+  html[lang='ar'] {
+    --font-display: 'Alexandria', system-ui, sans-serif;
+    --font-sans: 'Alexandria', system-ui, sans-serif;
+  }
+
+  body {
+    background: var(--color-ink);
+    color: #eef1e6;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-lime);
+    outline-offset: 3px;
+  }
+}
+
+/* Arabic letters join, so tracking is switched off for Arabic. Arabic has no capitals either, so
+   the small spaced-out labels are set larger to keep the weight the English capitals give them;
+   and headlines get more line height for the marks above and below the letters. */
+@layer utilities {
+  html[lang='ar'] [class*='tracking-'] {
+    letter-spacing: 0 !important;
+  }
+
+  html[lang='ar'] [class*='tracking-[0.'] {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+  }
+
+  html[lang='ar'] :is(h1, h2, h3) {
+    line-height: 1.32 !important;
+  }
+}
+
+/* Inter headlines, set tight the way large display sizes need. */
+html[lang='en'] .font-display {
+  letter-spacing: -0.04em;
+}
+
+/* Pinned sections: plain (not !important) so GSAP's inline position: fixed can take over. */
+.pv-pin {
+  position: relative;
+}
+
+/* Film grain over everything: takes the digital flatness off the dark grounds. Static. */
+.pv-grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Product line-up on a glossy floor (tablets and up; phones show the name under each jar). */
+@media (min-width: 768px) {
+  .pv-reflect {
+    -webkit-box-reflect: below 2px linear-gradient(transparent 74%, rgba(255, 255, 255, 0.14));
+  }
+}
+
+/* Satellite map, graded down so the routes and copy lead. */
+.pv-map-img {
+  filter: saturate(0.6) brightness(0.62) contrast(1.12);
+}
+
+.pv-pulse {
+  animation: pv-pulse 2.4s ease-out infinite;
+}
+
+@keyframes pv-pulse {
+  from { opacity: 0.9; scale: 0.6; }
+  to { opacity: 0; scale: 2.2; }
+}
+
+/* Outlined giant type. */
+.pv-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(238, 241, 230, 0.18);
+}
+
+/* Endless marquee. */
+.pv-marquee {
+  display: flex;
+  width: max-content;
+  animation: pv-marquee 38s linear infinite;
+}
+
+[dir='rtl'] .pv-marquee {
+  animation-name: pv-marquee-rtl;
+}
+
+@keyframes pv-marquee {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes pv-marquee-rtl {
+  to { transform: translateX(50%); }
+}
+
+.pv-float {
+  animation: pv-float 6s ease-in-out infinite;
+}
+
+@keyframes pv-float {
+  50% { transform: translateY(-18px) rotate(4deg); }
+}
+
+/* Form fields on the dark ground. */
+.pv-field {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #eef1e6;
+  font: inherit;
+  font-size: 15px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.pv-field:focus {
+  border-color: var(--color-lime);
+  background: rgba(255, 255, 255, 0.07);
+  outline: none;
+}
+
+textarea.pv-field {
+  min-height: 110px;
+  padding-block: 14px;
+  resize: vertical;
+}
+
+select.pv-field option {
+  background: #141a12;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-marquee,
+  .pv-float,
+  .pv-pulse {
+    animation: none;
+  }
+}
