@@ -173,7 +173,7 @@ export function Lineup({ jars, className = '' }) {
           <li key={p.id} className="pv-fam-jar group relative -mx-[0.8%] shrink-0 max-md:mx-0 max-md:w-[58vw] max-md:snap-center" style={{ zIndex: 10 - Math.round(d * 2), width: `${(136 / jars.length) * (1 - d * 0.1)}%` }}>
             <span className="pointer-events-none absolute left-1/2 bottom-[-1.5%] h-[6%] w-[92%] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(closest-side,rgba(0,0,0,0.55),transparent)] max-md:bottom-[13%]" aria-hidden="true" />
             <Link to={productPath(p)} className="relative block" aria-label={p[lang]}>
-              <img src={jarSrc(p)} alt={p[lang]} loading="lazy" className="h-auto w-full drop-shadow-[0_30px_30px_rgba(0,0,0,0.45)] transition-transform duration-500 ease-out group-hover:-translate-y-4 pv-reflect" />
+              <img src={jarSrc(p)} alt={p[lang]} width="418" height="554" loading="lazy" className="h-auto w-full drop-shadow-[0_30px_30px_rgba(0,0,0,0.45)] transition-transform duration-500 ease-out group-hover:-translate-y-4 pv-reflect" />
               <span className="mt-4 block text-center text-[14px] font-medium leading-snug text-white/85 md:hidden" dir="auto">{p[lang]}</span>
             </Link>
             <span className="pointer-events-none absolute left-1/2 -top-12 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/70 px-4 py-2 text-[13px] opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100 max-md:hidden">{p[lang]}</span>

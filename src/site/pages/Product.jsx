@@ -74,7 +74,7 @@ export default function Product() {
               <div className="absolute inset-[8%] rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,0.16),transparent)]" aria-hidden="true" />
               <button type="button" onClick={() => setZoom(true)} aria-label={`${x.product.zoom}: ${p[lang]}`} className="pv-product-jar group relative mx-auto block w-[min(78%,420px)] cursor-zoom-in">
                 <span className="absolute inset-x-[10%] -bottom-[3%] h-[8%] rounded-[50%] bg-[radial-gradient(closest-side,rgba(0,0,0,0.75),transparent)]" aria-hidden="true" />
-                <img src={jarSrc(p)} alt={p[lang]} fetchpriority="high" className="pv-reflect relative w-full drop-shadow-[0_50px_45px_rgba(0,0,0,0.55)] transition-transform duration-700 ease-out group-hover:-translate-y-3" />
+                <img src={jarSrc(p)} alt={p[lang]} width="418" height="554" fetchpriority="high" className="pv-reflect relative h-auto w-full drop-shadow-[0_50px_45px_rgba(0,0,0,0.55)] transition-transform duration-700 ease-out group-hover:-translate-y-3" />
               </button>
               <div className="mt-16 flex items-center justify-center gap-3">
                 <Link to={productPath(prev)} aria-label={x.product.prev} className="grid size-12 place-items-center rounded-full border border-white/20 hover:border-white/60"><Arrow className="rotate-180" /></Link>

@@ -35,11 +35,25 @@ function useSmoothScroll() {
   }, [])
 }
 
+// Pinned sections measure where they start once. Images that load later (phones load them as the
+// visitor scrolls) make the page taller, so re-measure whenever the content height changes.
+function useRemeasure() {
+  useEffect(() => {
+    // The phone address bar showing and hiding is not a real resize; don't re-measure on it.
+    ScrollTrigger.config({ ignoreMobileResize: true })
+    let t
+    const ro = new ResizeObserver(() => { clearTimeout(t); t = setTimeout(() => ScrollTrigger.refresh(), 150) })
+    ro.observe(document.body)
+    return () => { clearTimeout(t); ro.disconnect() }
+  }, [])
+}
+
 export default function Shell() {
   const { x, lang, setLang } = useT()
   const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
   useSmoothScroll()
+  useRemeasure()
 
   // A new page starts at its top with the menu closed; triggers re-measure for the new layout.
   useEffect(() => {

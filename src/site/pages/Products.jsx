@@ -17,7 +17,7 @@ export function JarCard({ p }) {
     <Link to={productPath(p)} className="group flex h-full flex-col">
       <span className="relative grid aspect-[4/5] place-items-center overflow-hidden rounded-[28px] border border-white/8" style={{ background: f.bg }}>
         <span className="absolute inset-x-[18%] bottom-[11%] h-[7%] rounded-[50%] bg-[radial-gradient(closest-side,rgba(0,0,0,0.55),transparent)]" aria-hidden="true" />
-        <img src={jarSrc(p)} alt="" loading="lazy" decoding="async" className="relative w-[64%] drop-shadow-[0_30px_30px_rgba(0,0,0,0.45)] transition-transform duration-700 ease-out group-hover:-translate-y-3 group-hover:scale-[1.04]" />
+        <img src={jarSrc(p)} alt="" width="418" height="554" loading="lazy" decoding="async" className="relative h-auto w-[64%] drop-shadow-[0_30px_30px_rgba(0,0,0,0.45)] transition-transform duration-700 ease-out group-hover:-translate-y-3 group-hover:scale-[1.04]" />
         <span className="absolute end-4 top-4 grid size-10 place-items-center rounded-full bg-black/35 opacity-0 backdrop-blur transition-opacity duration-300 group-hover:opacity-100"><Arrow /></span>
       </span>
       <span className="mt-4 px-1 text-[12px] font-semibold tracking-[0.18em] uppercase" style={{ color: f.accent }}>{cat.title[lang]} · {CUTS[p.cut][lang]}</span>
