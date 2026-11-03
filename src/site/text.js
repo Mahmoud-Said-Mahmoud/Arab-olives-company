@@ -30,7 +30,7 @@ export const TEXT = {
     factory: {
       eyebrow: 'Our factory · Sadat City',
       grading: 'Olives running from the size-grading line into curing barrels',
-      captions: { sorting: 'Sorting machine', inspect: 'Quality inspection', hands: 'Hand sorting', line: 'Grading hall', conveyor: 'Conveyor', hall: 'Curing barrels', grove: 'Our olive grove', rows: 'Young olive trees', owner: 'In the curing hall' },
+      captions: { sorting: 'Sorting machine', inspect: 'Quality inspection', hands: 'Hand sorting', line: 'Grading hall', conveyor: 'Conveyor', pouring: 'Emptying a curing barrel', hall: 'Curing barrels', grove: 'Our olive grove', rows: 'Young olive trees', owner: 'In the curing hall' },
     },
     export: {
       eyebrow: 'Export',
@@ -133,7 +133,7 @@ export const TEXT = {
     factory: {
       eyebrow: 'مصنعنا · مدينة السادات',
       grading: 'الزيتون نازل من خط التدريج إلى براميل التخليل',
-      captions: { sorting: 'ماكينة الفرز', inspect: 'فحص الجودة', hands: 'الفرز اليدوي', line: 'صالة التدريج', conveyor: 'السير الناقل', hall: 'براميل التخليل', grove: 'مزرعة الزيتون', rows: 'أشجار زيتون صغيرة', owner: 'في صالة التخليل' },
+      captions: { sorting: 'ماكينة الفرز', inspect: 'فحص الجودة', hands: 'الفرز اليدوي', line: 'صالة التدريج', conveyor: 'السير الناقل', pouring: 'تفريغ برميل التخليل', hall: 'براميل التخليل', grove: 'مزرعة الزيتون', rows: 'أشجار زيتون صغيرة', owner: 'في صالة التخليل' },
     },
     export: {
       eyebrow: 'التصدير',

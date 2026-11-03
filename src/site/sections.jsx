@@ -274,9 +274,9 @@ export function FactoryReveal() {
 }
 
 const GALLERY = [
-  [['sorting', 'aspect-[3/4]'], ['inspect', 'aspect-[4/3]']],
-  [['hands', 'aspect-[3/4]'], ['line', 'aspect-[4/3]']],
-  [['conveyor', 'aspect-[3/4]'], ['hall', 'aspect-[4/3]']],
+  [['sorting', 'aspect-[3/4]'], ['hands', 'aspect-[3/4]']],
+  [['inspect', 'aspect-[9/8]'], ['line', 'aspect-[9/8]'], ['hall', 'aspect-[9/8]']],
+  [['pouring', 'aspect-[3/4]'], ['conveyor', 'aspect-[3/4]']],
 ]
 
 export function Gallery({ columns = GALLERY }) {

@@ -4,9 +4,10 @@ import { CallToAction, FactoryReveal, Gallery, Location, Quality } from '../sect
 import { PageHero, Title, useGsap, useT } from '../ui.jsx'
 
 const ALBUM = [
-  [['grove', 'aspect-[4/3]'], ['inspect', 'aspect-[3/4]']],
-  [['owner', 'aspect-[3/4]'], ['line', 'aspect-[4/3]']],
-  [['rows', 'aspect-[3/4]'], ['hall', 'aspect-[4/3]']],
+  [['owner', 'aspect-[3/4]'], ['rows', 'aspect-[3/4]']],
+  [['grove', 'aspect-[9/8]'], ['inspect', 'aspect-[9/8]'], ['line', 'aspect-[9/8]']],
+  // 3:5 over a square matches the other columns; side by side on tablets both go square.
+  [['pouring', 'aspect-[3/5] sm:aspect-square lg:aspect-[3/5]'], ['hall', 'aspect-square']],
 ]
 
 // From grove to container: the five steps, each lit in turn as the line scrolls past.
