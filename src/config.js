@@ -2,7 +2,7 @@
 // Contact details below were not supplied either: replace every placeholder before launch.
 // src/inquiry.js only offers WhatsApp / email once these hold real values.
 // Public address of the site: used for canonical links, social previews and the sitemap.
-export const SITE_URL = 'https://arab-olives.vercel.app'
+export const SITE_URL = 'https://arab-olives.com'
 
 export const BRAND = {
   name: { ar: 'Arab Olives', en: 'Arab Olives' },
