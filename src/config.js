@@ -1,5 +1,5 @@
 // The Arabic trade name was not supplied, so the Latin name is used in both languages.
-// Contact details below were not supplied either: replace every placeholder before launch.
+// The factory address below is still a placeholder.
 // src/inquiry.js only offers WhatsApp / email once these hold real values.
 // Public address of the site: used for canonical links, social previews and the sitemap.
 export const SITE_URL = 'https://www.arab-olives.com'
@@ -7,10 +7,17 @@ export const SITE_URL = 'https://www.arab-olives.com'
 export const BRAND = {
   name: { ar: 'Arab Olives', en: 'Arab Olives' },
   whatsapp: '201288518544', // owner-confirmed WhatsApp number, digits only
-  email: 'sales@example.com',
+  email: 'info@arab-olives.com', // inquiries sent from the form by email go here
   phone: '+201092178421',
   address: { ar: '[عنوان المصنع]', en: '[Factory address]' },
 }
+
+// The company mailboxes, each with its label key in x.contact.emails.
+export const EMAILS = [
+  ['info', 'info@arab-olives.com'],
+  ['logistics', 'logistics@arab-olives.com'],
+  ['marketing', 'marketing@arab-olives.com'],
+]
 
 // Derived, optimised assets (WebP) served from public/img.
 export const img = (path) => `${import.meta.env.BASE_URL}img/${path}`

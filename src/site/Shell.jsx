@@ -4,9 +4,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
-import { BRAND, LOCATION } from '../config.js'
+import { BRAND, EMAILS, LOCATION } from '../config.js'
 import { CATEGORIES, catPath } from '../data/products.js'
-import { Languages, MapPin, Menu, Phone, X } from 'lucide-react'
+import { Languages, Mail, MapPin, Menu, Phone, X } from 'lucide-react'
 import { Arrow, WRAP, WhatsApp, useT } from './ui.jsx'
 
 // Footer link: a plain line from tablets up, a full-width divided row on phones.
@@ -154,6 +154,7 @@ export default function Shell() {
             <strong className="mb-1 text-[12.5px] font-semibold tracking-[0.2em] text-white max-sm:mb-2">{x.footer.reach}</strong>
             <a href={`tel:${BRAND.phone}`} className={`${row} hover:text-white`}><span className="flex items-center gap-3"><Phone size={17} aria-hidden="true" className="text-lime" /><bdi dir="ltr">+20 109 217 8421</bdi></span><Arrow className="text-white/35 sm:hidden" /></a>
             <a href={`https://wa.me/${BRAND.whatsapp}`} target="_blank" rel="noreferrer" aria-label="WhatsApp +20 128 851 8544" className={`${row} hover:text-white`}><span className="flex items-center gap-3"><WhatsApp size={17} className="text-lime" /><bdi dir="ltr">+20 128 851 8544</bdi></span><Arrow className="text-white/35 sm:hidden" /></a>
+            {EMAILS.map(([k, address]) => <a key={k} href={`mailto:${address}`} aria-label={`${x.contact.emails[k]} ${address}`} className={`${row} hover:text-white`}><span className="flex items-center gap-3"><Mail size={17} aria-hidden="true" className="text-lime" /><bdi dir="ltr">{address}</bdi></span><Arrow className="text-white/35 sm:hidden" /></a>)}
             <a href={LOCATION.mapUrl} target="_blank" rel="noreferrer" className={`${row} hover:text-white`}><span className="flex items-center gap-3"><MapPin size={17} aria-hidden="true" className="text-lime" />{x.location.title.join(' ').replace(/\.$/, '')}</span><Arrow className="text-white/35 sm:hidden" /></a>
           </div>
         </div>

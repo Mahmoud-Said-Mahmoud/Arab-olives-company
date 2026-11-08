@@ -1,8 +1,8 @@
-import { BRAND } from '../../config.js'
+import { BRAND, EMAILS } from '../../config.js'
 import Inquiry from '../Inquiry.jsx'
 import { usePage } from '../seo.js'
 import { Location } from '../sections.jsx'
-import { Phone } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
 import { Eyebrow, PageHero, Title, WhatsApp, useGsap, useT } from '../ui.jsx'
 
 export default function Contact() {
@@ -22,6 +22,19 @@ export default function Contact() {
               <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" aria-label={`${k} ${v}`} className="group flex items-center gap-4 rounded-[24px] border border-white/12 bg-black/40 px-6 py-5 backdrop-blur-md transition-colors hover:border-lime/60">
                 <span className="grid size-12 shrink-0 place-items-center rounded-full bg-lime/15 text-lime transition-colors group-hover:bg-lime group-hover:text-ink">{icon}</span>
                 <bdi dir="ltr" className="text-[22px] font-semibold">{v}</bdi>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <ul className="pv-up mt-3 grid max-w-[1000px] gap-3 md:grid-cols-3">
+          {EMAILS.map(([k, address]) => (
+            <li key={k}>
+              <a href={`mailto:${address}`} aria-label={`${x.contact.emails[k]} ${address}`} className="group flex items-center gap-4 rounded-[24px] border border-white/12 bg-black/40 px-5 py-4 backdrop-blur-md transition-colors hover:border-lime/60">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-lime/15 text-lime transition-colors group-hover:bg-lime group-hover:text-ink"><Mail size={20} aria-hidden="true" /></span>
+                <span className="flex min-w-0 flex-col">
+                  <span className="text-[13px] text-white/55">{x.contact.emails[k]}</span>
+                  <bdi dir="ltr" className="truncate text-[16px] font-semibold">{address}</bdi>
+                </span>
               </a>
             </li>
           ))}
