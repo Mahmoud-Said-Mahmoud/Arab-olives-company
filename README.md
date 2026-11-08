@@ -4,7 +4,7 @@ Website for **Arab Olives**, an Egyptian factory that packs green olives, black 
 
 موقع مصنع **Arab Olives** للزيتون والفلفل والمخللات — بالعربية (RTL) والإنجليزية (LTR).
 
-**Live site:** https://arab-olives.com
+**Live site:** https://www.arab-olives.com
 
 ## What is in the site
 
@@ -62,7 +62,7 @@ tools/               Data builders and verify.mjs
 
 ## Deployment
 
-The site is deployed on Vercel at https://arab-olives.com and redeploys on every push to `main`.
+The site is deployed on Vercel at https://www.arab-olives.com and redeploys on every push to `main`.
 
 The site is a single-page app with real URLs, so the host must serve `index.html` for unknown paths. `vercel.json` does this on Vercel and `public/_redirects` on Netlify-style hosts; other hosts need an equivalent rewrite rule.
 

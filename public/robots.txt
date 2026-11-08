@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://arab-olives.com/sitemap.xml
+Sitemap: https://www.arab-olives.com/sitemap.xml
