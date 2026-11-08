@@ -36,8 +36,6 @@ export const COPY = {
     },
     featured: { eyebrow: 'من الكتالوج', title: 'مختارات من التشكيلة', all: 'كل المنتجات الـ53' },
     docs: {
-      awardsTitle: 'الجوائز',
-      awardsLead: 'خمس جوائز من مسابقة الأهرام الدولية للزيتون، مؤرخة 28 ديسمبر 2024.',
       docsTitle: 'وثائق وشهادات',
       docsLead: 'التواريخ كما وردت في كل وثيقة، وليست تحققاً مستقلاً من سريانها اليوم.',
     },
@@ -171,8 +169,6 @@ export const COPY = {
     },
     featured: { eyebrow: 'From the catalog', title: 'A selection from the range', all: 'All 53 products' },
     docs: {
-      awardsTitle: 'Awards',
-      awardsLead: 'Five awards from the Pyramids international olive competition, dated 28 December 2024.',
       docsTitle: 'Documents & certificates',
       docsLead: 'Dates are as printed on each document; they are not independent verification of current status.',
     },

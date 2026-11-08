@@ -51,7 +51,7 @@ export const STRINGS = {
     awards: {
       eyebrow: 'الجوائز والشهادات',
       title: 'جوائز ووثائق',
-      lead: 'خمس جوائز جودة من مسابقة الأهرام الدولية للزيتون بتاريخ 28 ديسمبر 2024، ووثيقتان للمنشأة. اضغط على أي وثيقة لعرضها كاملة.',
+      lead: 'وثيقتان للمنشأة. اضغط على أي وثيقة لعرضها كاملة.',
       holder: 'الوثائق صادرة باسم Mano Food (International Company for Oils and Agri-Food Industries) كما يظهر في كل منها، ومعروضة دون تعديل.',
       zoomIn: 'تكبير',
       zoomOut: 'تصغير',
@@ -239,7 +239,7 @@ export const STRINGS = {
     awards: {
       eyebrow: 'Awards & certificates',
       title: 'Awards & documents',
-      lead: 'Five quality awards from the Pyramids international olive competition, dated 28 December 2024, and two facility documents. Select any document to view it in full.',
+      lead: 'Two facility documents. Select any document to view it in full.',
       holder: 'The documents are issued to Mano Food (International Company for Oils and Agri-Food Industries), as printed on each one, and are shown unaltered.',
       zoomIn: 'Zoom in',
       zoomOut: 'Zoom out',
