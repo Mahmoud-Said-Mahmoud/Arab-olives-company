@@ -411,11 +411,12 @@ export function Quality() {
         </div>
 
         {/* The scanned certificates, with captions that restate what each one says (src/data/awards.js) */}
-        <div className="mt-16 grid gap-10 sm:grid-cols-2 md:gap-14">
+        <div className="mt-16 grid gap-10 sm:grid-cols-2 md:gap-14 lg:grid-cols-3">
           {AWARDS.map((a, i) => (
-            <figure key={a.file} className="pv-up">
-              <button type="button" onClick={() => setDoc(a)} aria-label={`${x.quality.open}: ${a[lang].title}`} className={`group block w-full cursor-zoom-in ${i ? 'md:mt-16' : ''}`}>
-                <span className={`mx-auto block w-[min(100%,400px)] rounded-[6px] bg-[#1d1a15] p-[14px] shadow-[0_40px_70px_-20px_rgba(0,0,0,0.8),inset_0_0_0_1px_rgba(255,255,255,0.08)] transition-transform duration-700 ease-out ${i ? 'rotate-[1.6deg]' : '-rotate-[1.4deg]'} group-hover:-translate-y-2 group-hover:rotate-0`}>
+            // An odd one out on the two-column tablet grid sits centred under the others.
+            <figure key={a.file} className={`pv-up ${AWARDS.length % 2 && i === AWARDS.length - 1 ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
+              <button type="button" onClick={() => setDoc(a)} aria-label={`${x.quality.open}: ${a[lang].title}`} className={`group block w-full cursor-zoom-in ${i % 2 ? 'md:mt-16' : ''}`}>
+                <span className={`mx-auto block w-[min(100%,400px)] rounded-[6px] bg-[#1d1a15] p-[14px] shadow-[0_40px_70px_-20px_rgba(0,0,0,0.8),inset_0_0_0_1px_rgba(255,255,255,0.08)] transition-transform duration-700 ease-out ${i % 2 ? 'rotate-[1.6deg]' : '-rotate-[1.4deg]'} group-hover:-translate-y-2 group-hover:rotate-0`}>
                   <span className="block bg-[#f3efe4] p-[18px] shadow-[inset_0_2px_8px_rgba(0,0,0,0.25)]">
                     <img src={a.src} alt={a[lang].title} loading="lazy" className="block h-auto w-full" style={{ aspectRatio: `${a.w} / ${a.h}` }} />
                   </span>
