@@ -22,7 +22,7 @@ export default function Export() {
 
   return (
     <>
-      <PageHero eyebrow={x.exportPage.eyebrow} lines={x.exportPage.title} lead={x.exportPage.lead} photo="factory/line.webp" />
+      <PageHero eyebrow={x.exportPage.eyebrow} lines={x.exportPage.title} lead={x.exportPage.lead} photo="factory/sizing.webp" />
       <ExportMap heading={false} />
       <section ref={ref} className="mx-auto max-w-[1320px] px-6 py-28 md:px-12">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-8">

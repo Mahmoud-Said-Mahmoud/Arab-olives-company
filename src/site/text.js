@@ -1,5 +1,5 @@
 // Copy for the redesigned site, in both languages. Every claim restates something already in the
-// project: the catalogue, the FSSC 22000 and FDA documents, the Pyramids 2024 awards, the export
+// project: the catalogue, the FSSC 22000 and FDA documents, the export
 // markets and the factory's location. Unconfirmed details are left out rather than invented.
 export const TEXT = {
   en: {
@@ -11,9 +11,9 @@ export const TEXT = {
       sub: 'Green and black olives, pickles and peppers, graded, cured and packed at our factory in Sadat City.',
       cta: 'Explore the range',
       cta2: 'Become a distributor',
-      creds: [['FSSC 22000', 'certified food safety'], ['FDA', 'registered facility'], ['5 awards', 'Pyramids IOOC 2024']],
+      creds: [['FSSC 22000', 'certified food safety'], ['FDA', 'registered facility']],
     },
-    facts: ['FSSC 22000 certified', 'FDA-registered facility', '2 gold · 2 silver · 1 bronze — Pyramids 2024', 'Exporting to Brazil · Spain · Italy · France', 'Made in Sadat City, Egypt'],
+    facts: ['FSSC 22000 certified', 'FDA-registered facility', 'Exporting to Brazil · Spain · Italy · France', 'Made in Sadat City, Egypt'],
     range: {
       eyebrow: 'The range',
       title: ['Four', 'families.'],
@@ -30,7 +30,7 @@ export const TEXT = {
     factory: {
       eyebrow: 'Our factory · Sadat City',
       grading: 'Olives running from the size-grading line into curing barrels',
-      captions: { sorting: 'Sorting machine', inspect: 'Quality inspection', hands: 'Hand sorting', line: 'Grading hall', conveyor: 'Conveyor', pouring: 'Emptying a curing barrel', hall: 'Curing barrels', grove: 'Our olive grove', rows: 'Young olive trees', owner: 'In the curing hall' },
+      captions: { sorting: 'Sorting machine', inspect: 'Quality inspection', hands: 'Hand sorting', conveyor: 'Conveyor', sizing: 'Grading hall', slicing: 'Slicing line', barrels: 'Barrel check', pouring: 'Emptying a curing barrel', hall: 'Curing barrels', grove: 'Our olive grove', rows: 'Young olive trees', owner: 'In the curing hall' },
     },
     export: {
       eyebrow: 'Export',
@@ -40,8 +40,7 @@ export const TEXT = {
       mapAlt: 'Satellite map from Brazil to Europe and Egypt',
     },
     quality: {
-      title: ['Certified.', 'Awarded.'],
-      pyramids: 'Pyramids IOOC & IOC · 28 December 2024',
+      title: ['Certified.', 'Registered.'],
       open: 'Open',
       close: 'Close',
     },
@@ -114,9 +113,9 @@ export const TEXT = {
       sub: 'زيتون أخضر وأسود ومخللات وفلفل، نفرزها ونخللها ونعبّئها بمصنعنا في مدينة السادات.',
       cta: 'تصفّح التشكيلة',
       cta2: 'كن موزعًا لنا',
-      creds: [['FSSC 22000', 'شهادة سلامة غذاء'], ['FDA', 'منشأة مسجّلة'], ['5 جوائز', 'مسابقة الأهرام 2024']],
+      creds: [['FSSC 22000', 'شهادة سلامة غذاء'], ['FDA', 'منشأة مسجّلة']],
     },
-    facts: ['شهادة FSSC 22000', 'منشأة مسجّلة لدى FDA', 'ذهبيتان وفضيتان وبرونزية — الأهرام 2024', 'نصدّر إلى البرازيل وإسبانيا وإيطاليا وفرنسا', 'صُنع في مدينة السادات، مصر'],
+    facts: ['شهادة FSSC 22000', 'منشأة مسجّلة لدى FDA', 'نصدّر إلى البرازيل وإسبانيا وإيطاليا وفرنسا', 'صُنع في مدينة السادات، مصر'],
     range: {
       eyebrow: 'التشكيلة',
       title: ['أربع', 'عائلات.'],
@@ -133,7 +132,7 @@ export const TEXT = {
     factory: {
       eyebrow: 'مصنعنا · مدينة السادات',
       grading: 'الزيتون نازل من خط التدريج إلى براميل التخليل',
-      captions: { sorting: 'ماكينة الفرز', inspect: 'فحص الجودة', hands: 'الفرز اليدوي', line: 'صالة التدريج', conveyor: 'السير الناقل', pouring: 'تفريغ برميل التخليل', hall: 'براميل التخليل', grove: 'مزرعة الزيتون', rows: 'أشجار زيتون صغيرة', owner: 'في صالة التخليل' },
+      captions: { sorting: 'ماكينة الفرز', inspect: 'فحص الجودة', hands: 'الفرز اليدوي', conveyor: 'السير الناقل', sizing: 'صالة التدريج', slicing: 'خط التقطيع', barrels: 'فحص البراميل', pouring: 'تفريغ برميل التخليل', hall: 'براميل التخليل', grove: 'مزرعة الزيتون', rows: 'أشجار زيتون صغيرة', owner: 'في صالة التخليل' },
     },
     export: {
       eyebrow: 'التصدير',
@@ -143,8 +142,7 @@ export const TEXT = {
       mapAlt: 'خريطة بالأقمار الصناعية من البرازيل إلى أوروبا ومصر',
     },
     quality: {
-      title: ['معتمدون.', 'وحاصلون على جوائز.'],
-      pyramids: 'مسابقة الأهرام الدولية للزيتون · 28 ديسمبر 2024',
+      title: ['معتمدون.', 'ومسجّلون.'],
       open: 'فتح',
       close: 'إغلاق',
     },

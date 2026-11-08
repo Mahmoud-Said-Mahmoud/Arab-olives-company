@@ -3,11 +3,13 @@ import { usePage } from '../seo.js'
 import { CallToAction, FactoryReveal, Gallery, Location, Quality } from '../sections.jsx'
 import { PageHero, Title, useGsap, useT } from '../ui.jsx'
 
+// Three photos a column. The outer columns hold two portraits and a landscape; the middle one has
+// a single portrait, so its two landscapes go near-square (24:25) to end level with the others.
+// On tablets the third column becomes one row of three, so its landscape turns portrait there.
 const ALBUM = [
-  [['owner', 'aspect-[3/4]'], ['rows', 'aspect-[3/4]']],
-  [['grove', 'aspect-[9/8]'], ['inspect', 'aspect-[9/8]'], ['line', 'aspect-[9/8]']],
-  // 3:5 over a square matches the other columns; side by side on tablets both go square.
-  [['pouring', 'aspect-[3/5] sm:aspect-square lg:aspect-[3/5]'], ['hall', 'aspect-square']],
+  [['barrels', 'aspect-[3/4]'], ['grove', 'aspect-[4/3]'], ['owner', 'aspect-[3/4]']],
+  [['inspect', 'aspect-[24/25]'], ['slicing', 'aspect-[3/4]'], ['sizing', 'aspect-[24/25]']],
+  [['pouring', 'aspect-[3/4]'], ['hall', 'aspect-[4/3] sm:aspect-[3/4] lg:aspect-[4/3]'], ['rows', 'aspect-[3/4]']],
 ]
 
 // From grove to container: the five steps, each lit in turn as the line scrolls past.

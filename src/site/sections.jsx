@@ -5,7 +5,7 @@ import gsap from 'gsap'
 import { AWARDS } from '../data/awards.js'
 import { BRAND, DESTINATIONS, LOCATION } from '../config.js'
 import { CATEGORIES, PRODUCTS, catPath, productPath } from '../data/products.js'
-import { Award, Crosshair, ExternalLink, FileCheck2, MapPin, Navigation, ShieldCheck, X } from 'lucide-react'
+import { Crosshair, ExternalLink, FileCheck2, MapPin, Navigation, ShieldCheck, X } from 'lucide-react'
 import { Arrow, Eyebrow, WhatsApp, FAMILY, IMG, Magnetic, Rise, Title, WRAP, btn, jarSrc, useGsap, useT } from './ui.jsx'
 
 /* ------------------------------------------------------------------ hero */
@@ -115,7 +115,7 @@ export function Hero() {
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.6, duration: 0.9 }} className="absolute inset-x-0 bottom-0 z-20">
         <ul className="pv-hero-bar max-md:hidden mx-auto flex max-w-[1320px] flex-wrap gap-x-10 gap-y-4 px-6 pb-8 md:px-12">
           {x.hero.creds.map(([a, b], i) => {
-            const Icon = [ShieldCheck, FileCheck2, Award][i]
+            const Icon = [ShieldCheck, FileCheck2][i]
             return (
               <li key={a} className="flex items-center gap-3 border-t border-white/15 pt-5 text-[14px]">
                 <span className="grid size-10 shrink-0 place-items-center rounded-full bg-lime/15 text-lime"><Icon size={19} aria-hidden="true" /></span>
@@ -273,10 +273,12 @@ export function FactoryReveal() {
   )
 }
 
+// Two portraits and a landscape per column, so all three end level at their natural shapes.
+// On tablets the third column becomes one row of three, so its landscape turns portrait there.
 const GALLERY = [
-  [['sorting', 'aspect-[3/4]'], ['hands', 'aspect-[3/4]']],
-  [['inspect', 'aspect-[9/8]'], ['line', 'aspect-[9/8]'], ['hall', 'aspect-[9/8]']],
-  [['pouring', 'aspect-[3/4]'], ['conveyor', 'aspect-[3/4]']],
+  [['sorting', 'aspect-[3/4]'], ['sizing', 'aspect-[4/3]'], ['hands', 'aspect-[3/4]']],
+  [['inspect', 'aspect-[4/3]'], ['slicing', 'aspect-[3/4]'], ['conveyor', 'aspect-[3/4]']],
+  [['pouring', 'aspect-[3/4]'], ['barrels', 'aspect-[3/4]'], ['hall', 'aspect-[4/3] sm:aspect-[3/4] lg:aspect-[4/3]']],
 ]
 
 export function Gallery({ columns = GALLERY }) {
@@ -294,7 +296,7 @@ export function Gallery({ columns = GALLERY }) {
     <section ref={ref} className="relative overflow-hidden bg-ink py-16 lg:py-[18vh]">
       <div className="mx-auto grid max-w-[1320px] grid-cols-1 gap-5 px-6 sm:grid-cols-2 lg:grid-cols-3 md:px-12">
         {columns.map((col, i) => (
-          <div key={i} className={`pv-col flex flex-col gap-5 ${i === 2 ? 'sm:col-span-2 sm:grid sm:grid-cols-2 lg:col-span-1 lg:flex' : ''}`}>
+          <div key={i} className={`pv-col flex flex-col gap-5 ${i === 2 ? `sm:col-span-2 sm:grid ${col.length === 3 ? 'sm:grid-cols-3' : 'sm:grid-cols-2'} lg:col-span-1 lg:flex` : ''}`}>
             {col.map(([f, ar]) => (
               <figure key={f} className={`group relative ${ar} overflow-hidden rounded-[28px]`}>
                 <img src={IMG(`factory/${f}.webp`)} alt={x.factory.captions[f]} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" />
@@ -390,25 +392,10 @@ export function ExportMap({ heading = true }) {
 
 /* --------------------------------------------------------------- quality */
 
-// The scanned documents, with captions that restate what each one says (src/data/awards.js).
-const CERTS = AWARDS.filter((a) => a.kind === 'cert' || a.kind === 'doc')
-const MEDALS = AWARDS.filter((a) => ['gold', 'silver', 'bronze'].includes(a.kind))
-const MEDAL_TONE = { gold: '#d9b44a', silver: '#c3c8cb', bronze: '#b8794a' }
-
 export function Quality() {
   const { x, lang } = useT()
   const [doc, setDoc] = useState(null)
-  const ref = useGsap((root) => {
-    // Award certificates: from one stack to a fan.
-    const spread = window.matchMedia('(max-width: 767px)').matches ? 16 : 24
-    gsap.utils.toArray('.pv-fan-card', root).forEach((el, i, all) => {
-      const k = i - (all.length - 1) / 2
-      gsap.fromTo(el, { xPercent: -50 + k * 3, yPercent: -50 - k * 2, rotate: k * 2.5 }, {
-        xPercent: -50 + k * spread, yPercent: -50 + Math.abs(k) * 6, rotate: k * 6, ease: 'none',
-        scrollTrigger: { trigger: root.querySelector('.pv-fan'), start: 'top 85%', end: 'center 45%', scrub: 1 },
-      })
-    })
-  })
+  const ref = useGsap()
   useEffect(() => {
     if (!doc) return
     const onKey = (e) => e.key === 'Escape' && setDoc(null)
@@ -423,9 +410,9 @@ export function Quality() {
           <Title lines={x.quality.title} />
         </div>
 
-        {/* Certificates, framed on the wall */}
+        {/* The scanned certificates, with captions that restate what each one says (src/data/awards.js) */}
         <div className="mt-16 grid gap-10 sm:grid-cols-2 md:gap-14">
-          {CERTS.map((a, i) => (
+          {AWARDS.map((a, i) => (
             <figure key={a.file} className="pv-up">
               <button type="button" onClick={() => setDoc(a)} aria-label={`${x.quality.open}: ${a[lang].title}`} className={`group block w-full cursor-zoom-in ${i ? 'md:mt-16' : ''}`}>
                 <span className={`mx-auto block w-[min(100%,400px)] rounded-[6px] bg-[#1d1a15] p-[14px] shadow-[0_40px_70px_-20px_rgba(0,0,0,0.8),inset_0_0_0_1px_rgba(255,255,255,0.08)] transition-transform duration-700 ease-out ${i ? 'rotate-[1.6deg]' : '-rotate-[1.4deg]'} group-hover:-translate-y-2 group-hover:rotate-0`}>
@@ -440,32 +427,6 @@ export function Quality() {
               </figcaption>
             </figure>
           ))}
-        </div>
-
-        {/* Award certificates: stacked, they fan out as the section scrolls in */}
-        <div className="mt-28 grid items-center gap-12 lg:grid-cols-[1.5fr_1fr]">
-          <div className="pv-fan relative h-[clamp(220px,32vw,420px)]" dir="ltr">
-            {MEDALS.map((a, i) => (
-              <button key={a.file} type="button" onClick={() => setDoc(a)} aria-label={`${x.quality.open}: ${a[lang].title}`}
-                className="pv-fan-card absolute left-1/2 top-1/2 w-[46vw] sm:w-[clamp(200px,24vw,340px)] cursor-zoom-in rounded-[6px] bg-white p-[6px] shadow-[0_30px_50px_-12px_rgba(0,0,0,0.75)] transition-[filter] duration-300 hover:brightness-110" style={{ zIndex: 10 + i }}>
-                <img src={a.src} alt={a[lang].title} loading="lazy" className="block h-auto w-full" style={{ aspectRatio: `${a.w} / ${a.h}` }} />
-              </button>
-            ))}
-          </div>
-          <div>
-            <Eyebrow>{x.quality.pyramids}</Eyebrow>
-            <ul className="mt-6 border-t border-white/10">
-              {MEDALS.map((a) => (
-                <li key={a.file}>
-                  <button type="button" onClick={() => setDoc(a)} className="group flex w-full cursor-pointer items-center gap-4 border-b border-white/10 py-4 text-start">
-                    <span className="size-8 shrink-0 rounded-full shadow-md" style={{ background: `radial-gradient(circle at 35% 30%, #fff9, ${MEDAL_TONE[a.kind]} 55%, #0005)` }} aria-hidden="true" />
-                    <span className="flex-1 text-[15.5px] text-white/85 group-hover:text-white">{a[lang].title}</span>
-                    <span className="text-white/35 transition-colors group-hover:text-lime"><Arrow /></span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
 
